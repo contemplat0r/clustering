@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.lines as lines
 
 
 X = prepared_df_values
@@ -96,6 +97,13 @@ class ClustersDrawer(object):
         self.cluster_numbers = list(range(len(self.cluster_centres)))
         #self.text_cluster_labels = [str(i + 1) for i in range(len(self.cluster_centres))]
         self.text_cluster_labels = [str(i + 1) for i in self.cluster_numbers]
+        self.markers = []
+        for m in lines.Line2D.markers:
+            try:
+                if len(m) == 1 and m != ' ':
+                    self.markers.append(m)
+            except TypeError:
+                pass
 
     def draw():
         for i, text_label in zip(self.cluster_numbers, self.text_cluster_labels):
@@ -105,7 +113,8 @@ class ClustersDrawer(object):
                     X[bool_cluster_labels, self.y_axis_index],
                     s=200,
                     c='lightgreen',
-                    marker='s',
+                    #marker='s',
+                    marker=self.marker[i],
                     label='cluster {}'.format(text_label)
                 )
 
