@@ -109,3 +109,27 @@ class ClustersDrawer(object):
                     label='cluster {}'.format(text_label)
                 )
 
+        axes.scatter(
+                self.cluster_centers_[:, self.x_axis_index],
+                self.cluster_centers_[:, self.y_axis_index],
+                s=300,
+                marker='*',
+                c='red',
+                label='centroids'
+            )
+
+        for text_cluster_label, x, y in zip(
+            text_cluster_labels,
+            self.cluster_centers_[:, self.x_axis_index],
+            self.cluster_centers_[:, self.y_axis_index]):
+            axes.annotate(
+                text_cluster_label,
+                xy=(x, y),
+                xytext=(-20, 20),
+                textcoords='offset points',
+                ha='right',
+                va='bottom',
+                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
+                arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
+                fontsize=24
+            )
