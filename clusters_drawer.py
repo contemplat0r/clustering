@@ -129,8 +129,8 @@ class ClustersDrawer(object):
 
         for text_cluster_label, x, y in zip(
             text_cluster_labels,
-            self.cluster_centers_[:, self.x_axis_index],
-            self.cluster_centers_[:, self.y_axis_index]):
+            self.cluster_centers[:, self.x_axis_index],
+            self.cluster_centers[:, self.y_axis_index]):
             axes.annotate(
                 text_cluster_label,
                 xy=(x, y),
