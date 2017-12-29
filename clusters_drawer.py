@@ -231,12 +231,30 @@ class ClustersDrawer(object):
         self._draw_cluster_centers()
         self._draw_cluster_centers_labels()
 
-
+    def _draw_scatter(self, draw_2d_array, size, marker, color, label, bool_filter=None):
+        if bool_filter:
+            self._axes.scatter(
+                    draw_2d_array[bool_filter, self._x_axis_index],
+                    draw_2d_array[bool_filter, self._y_axis_index],
+                    s=size,
+                    c=color,
+                    marker=marker,
+                    label=label
+                )
+        else:
+            self._axes.scatter(
+                    draw_2d_array[:, self._x_axis_index],
+                    draw_2d_array[:, self._y_axis_index],
+                    s=size,
+                    c=color,
+                    marker=marker,
+                    label=label
+                )
 
     def _draw_data(self):
         for i, text_label in zip(self._cluster_numbers, self._text_cluster_labels):
             bool_cluster_labels = (self._cluster_labels == i)
-            self.axes.scatter(
+            self._axes.scatter(
                     self._X[bool_cluster_labels, self._x_axis_index],
                     self._X[bool_cluster_labels, self._y_axis_index],
                     s=200,
@@ -246,7 +264,7 @@ class ClustersDrawer(object):
                 )
     
     def _draw_cluster_centers(self):
-        axes.scatter(
+        self._axes.scatter(
                 self._cluster_centers[:, self._x_axis_index],
                 self._cluster_centers[:, self._y_axis_index],
                 s=300,
@@ -260,7 +278,7 @@ class ClustersDrawer(object):
             self._text_cluster_labels,
             self._cluster_centers[:, self._x_axis_index],
             self._cluster_centers[:, self._y_axis_index]):
-            axes.annotate(
+            self._axes.annotate(
                 text_cluster_label,
                 xy=(x, y),
                 xytext=(-20, 20),
