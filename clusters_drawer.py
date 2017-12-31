@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
 
-
+'''
 X = prepared_df_values
 cluster_labels = ms.labels_
 figure = plt.figure(figsize=(24, 24))
@@ -202,6 +202,7 @@ class ClustersDrawer(object):
                 arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
                 fontsize=24
             )
+'''
 
 class ClustersDrawer(object):
     
@@ -212,7 +213,10 @@ class ClustersDrawer(object):
         if feature_names != None:
             self._x_name = feature_names[self.x_axis_index]
             self._y_name = feature_names[self.y_axis_index]
-        self._figure = plt.figure(figsize=(24, 24))
+        self._figsize = (24, 24)
+        self._figure = plt.figure(figsize=self._figsize)
+        self._data_point_size = 200
+        self._cluster_centers_size = 300
         self._axes = figure.add_subplot(111)
         self._cluster_labels = estimator.labels_
         self._cluster_centres = estimator.cluster_centers_
@@ -257,7 +261,7 @@ class ClustersDrawer(object):
             self._axes.scatter(
                     self._X[bool_cluster_labels, self._x_axis_index],
                     self._X[bool_cluster_labels, self._y_axis_index],
-                    s=200,
+                    s=self._data_point_size,
                     c='lightgreen',
                     marker=self._marker[i],
                     label='cluster {}'.format(text_label)
@@ -267,7 +271,7 @@ class ClustersDrawer(object):
         self._axes.scatter(
                 self._cluster_centers[:, self._x_axis_index],
                 self._cluster_centers[:, self._y_axis_index],
-                s=300,
+                s=self._cluster_centers_size,
                 marker='*',
                 c='red',
                 label='centroids'
@@ -289,3 +293,15 @@ class ClustersDrawer(object):
                 arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
                 fontsize=24
             )
+
+    @property
+    def figsize(self):
+        return self._figsize
+
+    @figsize.setter
+    def figsize(self, width, height):
+       self._figsize = (width, height)
+
+    @figsize.deleter
+    def figsize(self):
+        raise ValueError("Error operation")
