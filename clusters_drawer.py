@@ -20,29 +20,47 @@ class ClustersDrawer(object):
         self._cluster_labels = estimator.labels_
         self._cluster_centers = estimator.cluster_centers_
         self._cluster_numbers = list(range(len(self._cluster_centers)))
+        #self._number_of_clusters = len(self._cluster_centers)
         self._text_cluster_labels = [str(i + 1) for i in self._cluster_numbers]
+        #self._text_cluster_labels = (str(i + 1) for i in range(self._number_of_clusters))
         self._markers = []
         for m in lines.Line2D.markers:
             try:
-                if len(m) == 1 and m != ' ':
+                if len(m) == 1 and m != ' ' and m != '.' and m != ',':
                     self._markers.append(m)
             except TypeError:
                 pass
+        self._color_step = 40
+        #self._cmap = plt.cm.gnuplot
+        self._cmap = plt.get_cmap('gnuplot')
+        self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
+        '''
+        self._colors = (
+                self._cmap(i) for i in range(
+                    0,
+                    self._color_step,
+                    self._number_of_clusters * self._color_step
+                )
+            )
+        '''
 
     def draw(self):
         self._draw_data()
         self._draw_cluster_centers()
         self._draw_cluster_centers_labels()
+        self._axes.legend(loc='best', prop={'size': self._fontsize})
+        self._axes.grid()
         self._plt.show()
 
     def _draw_data(self):
-        for i, text_label in zip(self._cluster_numbers, self._text_cluster_labels):
+        for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
+        #for i, color, text_label in zip(range(self._number_of_clusters), self._colors, self._text_cluster_labels):
             bool_cluster_labels = (self._cluster_labels == i)
             self._axes.scatter(
                     self._X[bool_cluster_labels, self._x_axis_index],
                     self._X[bool_cluster_labels, self._y_axis_index],
                     s=self._data_point_size,
-                    #c='lightgreen',
+                    c=color,
                     marker=self._markers[i],
                     label='cluster {}'.format(text_label)
                 )
@@ -120,4 +138,21 @@ class ClustersDrawer(object):
 
     @fontsize.deleter
     def fontsize(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def color_palette(self):
+        return self._colors
+
+    #def color_palette(self, cmapname, color_step):
+
+    @color_palette.setter
+    def color_palette(self, palette_params):
+        #self._color_step = color_step
+        #self._cmap = plt.get_cmap(cmapname)
+        self._color_step, self._cmap = palette_params[0], self._plt.get_cmap(palette_params[1])
+        self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
+
+    @color_palette.deleter
+    def color_palette(self):
         raise ValueError("Invalid operation")
