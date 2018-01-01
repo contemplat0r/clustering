@@ -16,11 +16,11 @@ class ClustersDrawer(object):
         self._cluster_centers_size = 300
         self._fontsize = 24
         self._figure = plt.figure(figsize=self._figsize)
-        self._axes = figure.add_subplot(111)
+        self._axes = self._figure.add_subplot(111)
         self._cluster_labels = estimator.labels_
         self._cluster_centers = estimator.cluster_centers_
-        self._cluster_numbers = list(range(len(self.cluster_centers)))
-        self._text_cluster_labels = [str(i + 1) for i in self.cluster_numbers]
+        self._cluster_numbers = list(range(len(self._cluster_centers)))
+        self._text_cluster_labels = [str(i + 1) for i in self._cluster_numbers]
         self._markers = []
         for m in lines.Line2D.markers:
             try:
@@ -33,6 +33,7 @@ class ClustersDrawer(object):
         self._draw_data()
         self._draw_cluster_centers()
         self._draw_cluster_centers_labels()
+        self._plt.show()
 
     def _draw_data(self):
         for i, text_label in zip(self._cluster_numbers, self._text_cluster_labels):
@@ -41,8 +42,8 @@ class ClustersDrawer(object):
                     self._X[bool_cluster_labels, self._x_axis_index],
                     self._X[bool_cluster_labels, self._y_axis_index],
                     s=self._data_point_size,
-                    c='lightgreen',
-                    marker=self._marker[i],
+                    #c='lightgreen',
+                    marker=self._markers[i],
                     label='cluster {}'.format(text_label)
                 )
     
