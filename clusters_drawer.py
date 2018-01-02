@@ -141,18 +141,51 @@ class ClustersDrawer(object):
         raise ValueError("Invalid operation")
 
     @property
-    def color_palette(self):
+    def data_markers(self):
+        return self._markers
+
+    @data_markers.setter
+    def data_markers(self, markers_list):
+        self._markers = markers_list
+
+    @data_markers.deleter
+    def data_markers(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def colors(self):
         return self._colors
 
-    #def color_palette(self, cmapname, color_step):
+    @colors.setter
+    def colors(self, colors_list):
+        self._colors = colors_list
 
-    @color_palette.setter
-    def color_palette(self, palette_params):
-        #self._color_step = color_step
-        #self._cmap = plt.get_cmap(cmapname)
-        self._color_step, self._cmap = palette_params[0], self._plt.get_cmap(palette_params[1])
+    @colors.deleter
+    def colors(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def colormap(self):
+        return self._cmap
+
+    @colormap.setter
+    def colormap(self, cmapname):
+        self._cmap = plt.get_cmap(cmapname)
         self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
 
-    @color_palette.deleter
-    def color_palette(self):
+    @colormap.deleter
+    def colormap(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def colorstep(self):
+        return self._color_step
+
+    @colorstep.setter
+    def colorstep(self, color_step):
+        self._color_step = color_step
+        self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
+
+    @colorstep.deleter
+    def colorstep(self):
         raise ValueError("Invalid operation")
