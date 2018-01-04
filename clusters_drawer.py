@@ -4,17 +4,69 @@ import matplotlib.lines as lines
 
 class ClustersDrawer(object):
     
-    def __init__(self, plt, estimator, X, features_axis, feature_names=None):
+    DEFAULT_FONT_SIZE = 24
+    DEFAULT_FIGURE_SIZE = (24, 24)
+    DEFAULT_DATA_POINT_SIZE = 200
+    DEFAULT_CLUSTER_CENTERS_SIZE = 300
+    DEFAULT_COLOR_STEP = 40
+    DEFAULT_CMAP_NAME = 'gnuplot'
+    DEFAULT_CLUSTER_CENTERS_COLOR='red'
+    DEFAULT_CLUSTER_CENTERS_MARKER='*'
+    DEFAULT_CLUSTER_CENTERS_TEXT_LABEL='centroids'
+    
+    def __init__(
+            self,
+            plt,
+            estimator,
+            X,
+            features_axis,
+            feature_names=None,
+            font_size=None,
+            figsize=None,
+            data_point_size=None,
+            color_step=None,
+            cmap_name=None,
+            data_colors=None,
+            cluster_labels=None
+            cluster_centers_size=None,
+            cluster_centers_color=None,
+            cluster_centers_marker=None,
+            cluster_centers_text_label=None
+        ):
         self._X = X
         self._plt = plt
         self._x_axis_index, self._y_axis_index = features_axis
         if feature_names != None:
             self._x_name = feature_names[self.x_axis_index]
             self._y_name = feature_names[self.y_axis_index]
-        self._figsize = (24, 24)
-        self._data_point_size = 200
-        self._cluster_centers_size = 300
-        self._fontsize = 24
+        if figsize:
+            self._figsize = figsize
+        else:
+            self._figsize = DEFAULT_FIGURE_SIZE
+        if data_point_size:
+            self._data_point_size = data_point_size
+        else:
+            self._data_point_size = DEFAULT_DATA_POINT_SIZE
+        if cluster_centers_size:
+            self._cluster_centers_size = cluster_centers_size
+        else:
+            self._cluster_centers_size = DEFAULT_CLUSTER_CENTERS_SIZE
+        if cluster_centers_marker:
+            self._cluster_centers_marker = cluster_centers_marker
+        else:
+            self._cluster_centers_marker = DEFAULT_CLUSTER_CENTERS_MARKER
+        if cluster_centers_color:
+            self._cluster_centers_color = cluster_centers_color
+        else:
+            self._cluster_centers_color = DEFAULT_CLUSTER_CENTERS_COLOR
+        if cluster_centers_text_label:
+            self._cluster_centers_text_label = cluster_centers_text_label
+        else:
+            self._cluster_centers_text_label = DEFAULT_CLUSTER_CENTERS_TEXT_LABEL
+        if fontsize:
+            self._fontsize = fontsize
+        else:
+            self._fontsize = DEFAULT_FONT_SIZE
         self._figure = plt.figure(figsize=self._figsize)
         self._axes = self._figure.add_subplot(111)
         self._cluster_labels = estimator.labels_
@@ -30,10 +82,18 @@ class ClustersDrawer(object):
                     self._markers.append(m)
             except TypeError:
                 pass
-        self._color_step = 40
-        #self._cmap = plt.cm.gnuplot
-        self._cmap = plt.get_cmap('gnuplot')
-        self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
+        if colorstep:
+            self._color_step = color_step
+        else:
+            self._color_step = DEFAULT_COLOR_STEP
+        if cmap_name:
+            self._cmap = plt.get_cmap(cmap_name)
+        else:
+            self._cmap = plt.get_cmap(DEFAULT_CMAP_NAME)
+        if data_colors:
+            self._colors = data_colors
+        else:
+            self._colors = [self._cmap(i * self._color_step) for i in self._cluster_numbers]
         '''
         self._colors = (
                 self._cmap(i) for i in range(
@@ -49,6 +109,10 @@ class ClustersDrawer(object):
         self._draw_cluster_centers()
         self._draw_cluster_centers_labels()
         self._axes.legend(loc='best', prop={'size': self._fontsize})
+        if self._x_name:
+            self._axes.set_xlabel(self._x_name)
+        if self._y_name:
+            self._axes.set_ylabel(self._y_name)
         self._axes.grid()
         self._plt.show()
 
@@ -70,9 +134,9 @@ class ClustersDrawer(object):
                 self._cluster_centers[:, self._x_axis_index],
                 self._cluster_centers[:, self._y_axis_index],
                 s=self._cluster_centers_size,
-                marker='*',
-                c='red',
-                label='centroids'
+                marker=self._cluster_centers_marker,
+                c=self._cluster_centers_color,
+                label=self._cluster_centers_text_label
             )
 
     def _draw_cluster_centers_labels(self):
@@ -126,6 +190,43 @@ class ClustersDrawer(object):
 
     @cluster_centers_size.deleter
     def cluster_centers_size(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def clulster_centers_color(self):
+        return self._cluster_centers_color
+
+    @cluster_centers_color.setter
+    def cluster_centers_color(self, color_name):
+        self._cluster_centers_color = color_name
+
+    @cluster_centers_color.deleter
+    def cluster_centers_color(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def cluster_centers_marker(self):
+        return self._cluster_centers_marker
+
+    @cluster_centers_marker.setter
+    def cluster_centers_marker(self, marker):
+        self._cluster_centers_marker = marker
+
+    @cluster_centers_marker.deleter
+    def cluster_centers_marker(self):
+        raise ValueError("Invalid operation")
+
+    @property
+    def cluster_centers_text_label(self):
+        return self._cluster_centers_text_label
+
+    @cluster_centers_text_label.setter
+    def cluster_centers_text_label(self, text_label):
+        self._cluster_centers_text_label = text_label
+
+
+    @cluster_centers_text_label.deleter
+    def cluster_centers_text_label(self):
         raise ValueError("Invalid operation")
 
     @property
