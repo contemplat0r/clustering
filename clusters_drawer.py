@@ -37,6 +37,8 @@ class ClustersDrawer(object):
         self._plt = plt
         self._x_axis_index, self._y_axis_index = features_axis
         if feature_names != None:
+            self._feature_names = feature_names
+        if feature_names != None:
             self._x_name = feature_names[self.x_axis_index]
             self._y_name = feature_names[self.y_axis_index]
         if figsize:
@@ -103,6 +105,21 @@ class ClustersDrawer(object):
                 )
             )
         '''
+    def draw_2d_proection(self, x_axis_index, y_axis_index):
+        self._draw_data(x_axis_index, y_axis_index)
+        self._draw_cluster_centers(x_axis_index, y_axis_index)
+        self._draw_cluster_centers_labels(x_axis_index, y_axis_index)
+        self._axes.legend(loc='best', prop={'size': self._fontsize})
+        if self._feature_names:
+            self._axes.set_xlabel(self._feature_names[x_axis_index])
+            self._axes.set_ylabel(self._feature_names[y_axis_index])
+        self._axes.grid()
+        self._plt.show()
+
+    def draw(self):
+        for proection_indexes in self._proections_indexses:
+            x_axis_index, y_axis_index = proection_indexes
+            self.draw_2d_proection(x_axis_index, y_axis_index)
 
     def draw(self):
         self._draw_data()
@@ -115,6 +132,18 @@ class ClustersDrawer(object):
             self._axes.set_ylabel(self._y_name)
         self._axes.grid()
         self._plt.show()
+
+    def _draw_data(self, x_axis_index, y_axis_index):
+        for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
+            bool_cluster_labels = (self._cluster_labels == i)
+            self._axes.scatter(
+                    self._X[bool_cluster_labels, x_axis_index],
+                    self._X[bool_cluster_labels, y_axis_index],
+                    s=self._data_point_size,
+                    c=color,
+                    marker=self._markers[i],
+                    label='cluster {}'.format(text_label)
+                )
 
     def _draw_data(self):
         for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
@@ -129,6 +158,16 @@ class ClustersDrawer(object):
                     label='cluster {}'.format(text_label)
                 )
     
+    def _draw_cluster_centers(self, x_axis_index, y_axis_index):
+        self._axes.scatter(
+                self._cluster_centers[:, x_axis_index],
+                self._cluster_centers[:, y_axis_index],
+                s=self._cluster_centers_size,
+                marker=self._cluster_centers_marker,
+                c=self._cluster_centers_color,
+                label=self._cluster_centers_text_label
+            )
+
     def _draw_cluster_centers(self):
         self._axes.scatter(
                 self._cluster_centers[:, self._x_axis_index],
@@ -137,6 +176,23 @@ class ClustersDrawer(object):
                 marker=self._cluster_centers_marker,
                 c=self._cluster_centers_color,
                 label=self._cluster_centers_text_label
+            )
+
+    def _draw_cluster_centers_labels(self, x_axis_index, y_axis_index):
+        for text_cluster_label, x, y in zip(
+            self._text_cluster_labels,
+            self._cluster_centers[:, x_axis_index],
+            self._cluster_centers[:, y_axis_index]):
+            self._axes.annotate(
+                text_cluster_label,
+                xy=(x, y),
+                xytext=(-20, 20),
+                textcoords='offset points',
+                ha='right',
+                va='bottom',
+                bbox=dict(boxstyle='round,pad=0.5', fc='yellow', alpha=0.5),
+                arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
+                fontsize=self._fontsize
             )
 
     def _draw_cluster_centers_labels(self):
