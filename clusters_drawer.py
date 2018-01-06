@@ -20,14 +20,14 @@ class ClustersDrawer(object):
             estimator,
             X,
             features_axis,
-            feature_names=None,
-            font_size=None,
+            features_names=None,
+            fontsize=None,
             figsize=None,
             data_point_size=None,
             color_step=None,
             cmap_name=None,
             data_colors=None,
-            cluster_labels=None
+            cluster_labels=None,
             cluster_centers_size=None,
             cluster_centers_color=None,
             cluster_centers_marker=None,
@@ -36,39 +36,42 @@ class ClustersDrawer(object):
         self._X = X
         self._plt = plt
         self._x_axis_index, self._y_axis_index = features_axis
-        if feature_names != None:
-            self._feature_names = feature_names
-        if feature_names != None:
-            self._x_name = feature_names[self.x_axis_index]
-            self._y_name = feature_names[self.y_axis_index]
+        if features_names != None:
+            self._features_names = features_names
+        if features_names != None:
+            self._x_name = features_names[self._x_axis_index]
+            self._y_name = features_names[self._y_axis_index]
+        else:
+            self._x_name = None
+            self._y_name = None
         if figsize:
             self._figsize = figsize
         else:
-            self._figsize = DEFAULT_FIGURE_SIZE
+            self._figsize = self.DEFAULT_FIGURE_SIZE
         if data_point_size:
             self._data_point_size = data_point_size
         else:
-            self._data_point_size = DEFAULT_DATA_POINT_SIZE
+            self._data_point_size = self.DEFAULT_DATA_POINT_SIZE
         if cluster_centers_size:
             self._cluster_centers_size = cluster_centers_size
         else:
-            self._cluster_centers_size = DEFAULT_CLUSTER_CENTERS_SIZE
+            self._cluster_centers_size = self.DEFAULT_CLUSTER_CENTERS_SIZE
         if cluster_centers_marker:
             self._cluster_centers_marker = cluster_centers_marker
         else:
-            self._cluster_centers_marker = DEFAULT_CLUSTER_CENTERS_MARKER
+            self._cluster_centers_marker = self.DEFAULT_CLUSTER_CENTERS_MARKER
         if cluster_centers_color:
             self._cluster_centers_color = cluster_centers_color
         else:
-            self._cluster_centers_color = DEFAULT_CLUSTER_CENTERS_COLOR
+            self._cluster_centers_color = self.DEFAULT_CLUSTER_CENTERS_COLOR
         if cluster_centers_text_label:
             self._cluster_centers_text_label = cluster_centers_text_label
         else:
-            self._cluster_centers_text_label = DEFAULT_CLUSTER_CENTERS_TEXT_LABEL
+            self._cluster_centers_text_label = self.DEFAULT_CLUSTER_CENTERS_TEXT_LABEL
         if fontsize:
             self._fontsize = fontsize
         else:
-            self._fontsize = DEFAULT_FONT_SIZE
+            self._fontsize = self.DEFAULT_FONT_SIZE
         self._figure = plt.figure(figsize=self._figsize)
         self._axes = self._figure.add_subplot(111)
         self._cluster_labels = estimator.labels_
@@ -84,14 +87,14 @@ class ClustersDrawer(object):
                     self._markers.append(m)
             except TypeError:
                 pass
-        if colorstep:
+        if color_step:
             self._color_step = color_step
         else:
-            self._color_step = DEFAULT_COLOR_STEP
+            self._color_step = self.DEFAULT_COLOR_STEP
         if cmap_name:
             self._cmap = plt.get_cmap(cmap_name)
         else:
-            self._cmap = plt.get_cmap(DEFAULT_CMAP_NAME)
+            self._cmap = plt.get_cmap(self.DEFAULT_CMAP_NAME)
         if data_colors:
             self._colors = data_colors
         else:
@@ -110,16 +113,18 @@ class ClustersDrawer(object):
         self._draw_cluster_centers(x_axis_index, y_axis_index)
         self._draw_cluster_centers_labels(x_axis_index, y_axis_index)
         self._axes.legend(loc='best', prop={'size': self._fontsize})
-        if self._feature_names:
-            self._axes.set_xlabel(self._feature_names[x_axis_index])
-            self._axes.set_ylabel(self._feature_names[y_axis_index])
+        if self._features_names:
+            self._axes.set_xlabel(self._features_names[x_axis_index])
+            self._axes.set_ylabel(self._features_names[y_axis_index])
         self._axes.grid()
         self._plt.show()
 
+    '''
     def draw(self):
         for proection_indexes in self._proections_indexses:
             x_axis_index, y_axis_index = proection_indexes
             self.draw_2d_proection(x_axis_index, y_axis_index)
+    '''
 
     def draw(self):
         self._draw_data()
@@ -133,6 +138,7 @@ class ClustersDrawer(object):
         self._axes.grid()
         self._plt.show()
 
+    '''
     def _draw_data(self, x_axis_index, y_axis_index):
         for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
             bool_cluster_labels = (self._cluster_labels == i)
@@ -144,6 +150,7 @@ class ClustersDrawer(object):
                     marker=self._markers[i],
                     label='cluster {}'.format(text_label)
                 )
+    '''
 
     def _draw_data(self):
         for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
@@ -157,7 +164,7 @@ class ClustersDrawer(object):
                     marker=self._markers[i],
                     label='cluster {}'.format(text_label)
                 )
-    
+    '''
     def _draw_cluster_centers(self, x_axis_index, y_axis_index):
         self._axes.scatter(
                 self._cluster_centers[:, x_axis_index],
@@ -167,6 +174,7 @@ class ClustersDrawer(object):
                 c=self._cluster_centers_color,
                 label=self._cluster_centers_text_label
             )
+    '''
 
     def _draw_cluster_centers(self):
         self._axes.scatter(
@@ -177,7 +185,7 @@ class ClustersDrawer(object):
                 c=self._cluster_centers_color,
                 label=self._cluster_centers_text_label
             )
-
+    '''
     def _draw_cluster_centers_labels(self, x_axis_index, y_axis_index):
         for text_cluster_label, x, y in zip(
             self._text_cluster_labels,
@@ -194,6 +202,7 @@ class ClustersDrawer(object):
                 arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
                 fontsize=self._fontsize
             )
+    '''
 
     def _draw_cluster_centers_labels(self):
         for text_cluster_label, x, y in zip(
@@ -249,7 +258,7 @@ class ClustersDrawer(object):
         raise ValueError("Invalid operation")
 
     @property
-    def clulster_centers_color(self):
+    def cluster_centers_color(self):
         return self._cluster_centers_color
 
     @cluster_centers_color.setter
