@@ -35,15 +35,19 @@ class ClustersDrawer(object):
         ):
         self._X = X
         self._plt = plt
-        self._x_axis_index, self._y_axis_index = features_axis
+        self._features_axis = features_axis
+        self._proections_indexses = self.pair_list(features_axis)
+        #self._x_axis_index, self._y_axis_index = features_axis
         if features_names != None:
             self._features_names = features_names
+        '''
         if features_names != None:
             self._x_name = features_names[self._x_axis_index]
             self._y_name = features_names[self._y_axis_index]
         else:
             self._x_name = None
             self._y_name = None
+        '''
         if figsize:
             self._figsize = figsize
         else:
@@ -108,7 +112,17 @@ class ClustersDrawer(object):
                 )
             )
         '''
+    def pair_list(self, lst):
+        paired_list = []
+        for first_pair_item in lst:
+            for second_pair_item in lst:
+                paired_list.append((first_pair_item, second_pair_item))
+        print(paired_list)
+        return paired_list
+    
     def draw_2d_proection(self, x_axis_index, y_axis_index):
+        self._axes.clear()
+        #self._figure.clf()
         self._draw_data(x_axis_index, y_axis_index)
         self._draw_cluster_centers(x_axis_index, y_axis_index)
         self._draw_cluster_centers_labels(x_axis_index, y_axis_index)
@@ -119,13 +133,12 @@ class ClustersDrawer(object):
         self._axes.grid()
         self._plt.show()
 
-    '''
     def draw(self):
         for proection_indexes in self._proections_indexses:
             x_axis_index, y_axis_index = proection_indexes
             self.draw_2d_proection(x_axis_index, y_axis_index)
-    '''
 
+    '''
     def draw(self):
         self._draw_data()
         self._draw_cluster_centers()
@@ -137,8 +150,8 @@ class ClustersDrawer(object):
             self._axes.set_ylabel(self._y_name)
         self._axes.grid()
         self._plt.show()
-
     '''
+
     def _draw_data(self, x_axis_index, y_axis_index):
         for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
             bool_cluster_labels = (self._cluster_labels == i)
@@ -151,7 +164,6 @@ class ClustersDrawer(object):
                     label='cluster {}'.format(text_label)
                 )
     '''
-
     def _draw_data(self):
         for i, color, text_label in zip(self._cluster_numbers, self._colors, self._text_cluster_labels):
         #for i, color, text_label in zip(range(self._number_of_clusters), self._colors, self._text_cluster_labels):
@@ -165,6 +177,7 @@ class ClustersDrawer(object):
                     label='cluster {}'.format(text_label)
                 )
     '''
+
     def _draw_cluster_centers(self, x_axis_index, y_axis_index):
         self._axes.scatter(
                 self._cluster_centers[:, x_axis_index],
@@ -174,8 +187,8 @@ class ClustersDrawer(object):
                 c=self._cluster_centers_color,
                 label=self._cluster_centers_text_label
             )
-    '''
 
+    '''
     def _draw_cluster_centers(self):
         self._axes.scatter(
                 self._cluster_centers[:, self._x_axis_index],
@@ -186,6 +199,7 @@ class ClustersDrawer(object):
                 label=self._cluster_centers_text_label
             )
     '''
+
     def _draw_cluster_centers_labels(self, x_axis_index, y_axis_index):
         for text_cluster_label, x, y in zip(
             self._text_cluster_labels,
@@ -202,8 +216,8 @@ class ClustersDrawer(object):
                 arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
                 fontsize=self._fontsize
             )
-    '''
 
+    '''
     def _draw_cluster_centers_labels(self):
         for text_cluster_label, x, y in zip(
             self._text_cluster_labels,
@@ -220,6 +234,7 @@ class ClustersDrawer(object):
                 arrowprops=dict(arrowstyle = '->', connectionstyle='arc3,rad=0'),
                 fontsize=self._fontsize
             )
+    '''
 
     @property
     def figsize(self):
