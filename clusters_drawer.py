@@ -101,12 +101,13 @@ class ClustersDrawer(object):
                 )
             )
         '''
-    def pair_list(self, lst):
+    def pair_list(self, first_items_list):
         paired_list = []
-        for first_pair_item in lst:
-            for second_pair_item in lst:
-                if first_pair_item != second_pair_item:
-                    paired_list.append((first_pair_item, second_pair_item))
+        second_items_list = first_items_list[1:]
+        for first_pair_item in first_items_list:
+            for second_pair_item in second_items_list:
+                paired_list.append((first_pair_item, second_pair_item))
+            second_items_list = second_items_list[1:]
         print(paired_list)
         return paired_list
     
