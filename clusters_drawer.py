@@ -1,3 +1,4 @@
+import itertools
 import matplotlib.pyplot as plt
 import matplotlib.lines as lines
 
@@ -101,6 +102,8 @@ class ClustersDrawer(object):
                 )
             )
         '''
+
+    '''
     def pair_list(self, first_items_list):
         paired_list = []
         second_items_list = first_items_list[1:]
@@ -110,6 +113,10 @@ class ClustersDrawer(object):
             second_items_list = second_items_list[1:]
         print(paired_list)
         return paired_list
+    '''
+
+    def pair_list(self, lst):
+        return itertools.combinations(lst, 2)
     
     def draw_2d_proection(self, axes, x_axis_index, y_axis_index):
         self._draw_data(axes, x_axis_index, y_axis_index)
