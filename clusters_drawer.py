@@ -112,8 +112,8 @@ class ClustersDrawer(object):
         self._draw_cluster_centers_labels(axes, x_axis_index, y_axis_index)
         axes.legend(loc='best', prop={'size': self._fontsize})
         if self._features_names:
-            axes.set_xlabel(self._features_names[x_axis_index])
-            axes.set_ylabel(self._features_names[y_axis_index])
+            axes.set_xlabel(self._features_names[x_axis_index], fontsize=14)
+            axes.set_ylabel(self._features_names[y_axis_index], fontsize=14)
         axes.grid()
         self._plt.show()
 
