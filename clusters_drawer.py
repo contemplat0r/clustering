@@ -118,10 +118,11 @@ class ClustersDrawer(object):
         self._plt.show()
 
     def draw(self):
-        for proection_indexes in self._proections_indexses:
+        for i, proection_indexes in enumerate(self._proections_indexses):
             figure = plt.figure(figsize=self._figsize)
             axes = figure.add_subplot(111)
             x_axis_index, y_axis_index = proection_indexes
+            print("\t", i)
             self.draw_2d_proection(axes, x_axis_index, y_axis_index)
 
     def _draw_data(self, axes, x_axis_index, y_axis_index):
