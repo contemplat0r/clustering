@@ -1,0 +1,17 @@
+((*- extends 'article.tplx' -*))
+((* block packages *))
+    ((( super() ))) % load all other packages
+    \usepackage[T1,T2A]{fontenc}
+    \usepackage[english, russian]{babel}
+    \usepackage{mathtools}
+((* endblock packages *))
+
+((* macro draw_source(text, cell) -*))
+\begin{Verbatim}[commandchars=\\\{\}]
+((( text  )))
+\end{Verbatim}
+((*- endmacro *))
+
+((* block input scoped *))
+    ((( draw_source(cell.source | highlight_code(strip_verbatim=True, metadata=cell.metadata), cell) )))
+((* endblock input *))
