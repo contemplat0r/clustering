@@ -13,7 +13,8 @@ class ClustersDrawer(object):
     DEFAULT_CMAP_NAME = 'gnuplot'
     DEFAULT_CLUSTER_CENTERS_COLOR='red'
     DEFAULT_CLUSTER_CENTERS_MARKER='*'
-    DEFAULT_CLUSTER_CENTERS_TEXT_LABEL='centroids'
+    #DEFAULT_CLUSTER_CENTERS_TEXT_LABEL='centroids'
+    DEFAULT_CLUSTER_CENTERS_TEXT_LABEL='Центры кластеров'
     
     def __init__(
             self,
@@ -112,8 +113,8 @@ class ClustersDrawer(object):
         self._draw_cluster_centers_labels(axes, x_axis_index, y_axis_index)
         axes.legend(loc='best', prop={'size': self._fontsize})
         if self._features_names:
-            axes.set_xlabel(self._features_names[x_axis_index], fontsize=14)
-            axes.set_ylabel(self._features_names[y_axis_index], fontsize=14)
+            axes.set_xlabel(self._features_names[x_axis_index], fontsize=20)
+            axes.set_ylabel(self._features_names[y_axis_index], fontsize=20)
         axes.grid()
         self._plt.show()
 
@@ -122,7 +123,7 @@ class ClustersDrawer(object):
             figure = plt.figure(figsize=self._figsize)
             axes = figure.add_subplot(111)
             x_axis_index, y_axis_index = proection_indexes
-            print("\t", i)
+            print("\t", i + 1)
             self.draw_2d_proection(axes, x_axis_index, y_axis_index)
 
     def _draw_data(self, axes, x_axis_index, y_axis_index):
@@ -134,7 +135,7 @@ class ClustersDrawer(object):
                     s=self._data_point_size,
                     c=color,
                     marker=self._markers[i],
-                    label='cluster {}'.format(text_label)
+                    label='Кластер {}'.format(text_label)
                 )
 
     def _draw_cluster_centers(self, axes, x_axis_index, y_axis_index):
