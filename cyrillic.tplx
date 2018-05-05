@@ -15,3 +15,14 @@
 ((* block input scoped *))
     ((( draw_source(cell.source | highlight_code(strip_verbatim=True, metadata=cell.metadata), cell) )))
 ((* endblock input *))
+
+((* block execute_result scoped *))
+    ((*- for type in output.data | filter_data_type -*))
+        ((*- if type in ['text/plain']*))
+            ((( output.data['text/plain'] | escape_latex )))
+        ((* else -*))
+            ((( super() )))
+        ((*- endif -*))
+    ((*- endfor -*))
+((* endblock execute_result *))
+
