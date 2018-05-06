@@ -1,0 +1,2750 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+     % load all other packages
+    \usepackage[T1,T2A]{fontenc}
+    \usepackage[english, russian]{babel}
+    \usepackage{mathtools}
+
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Regions-Clustering-Seaborn-New}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{importlib}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{sklearn}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{minmax\PYZus{}scale}
+\PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{cluster}
+\PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{decomposition}
+\PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+\PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{randint} \PY{k}{as} \PY{n}{sp\PYZus{}randint}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{RandomizedSearchCV}
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}
+\PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{patches} \PY{k}{as} \PY{n+nn}{patches}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{collections} \PY{k}{as} \PY{n+nn}{collections}
+\PY{k+kn}{import} \PY{n+nn}{scipy}
+\PY{k+kn}{import} \PY{n+nn}{shapefile}
+\PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+    Замечание: в дальнейшем термин <<класс>> используется в двух
+различных значениях
+
+\begin{enumerate}
+\item Концепция ООП программирования, широко используемая в большинстве современных языков программирования, служащая для объединения программного кода в некие семантически/логически/функционально связанные сущьности, и предоставляющая средства для оперирования с этими сущьностями.
+\item Как класс в задачах классификации машинного обучения. В данном случае смысл термина класс близок к бытовому его восприятию (например классом в таком понимании является сорт цветка - роза, тюльпан, и т.д. тип траспортного средства - автомобиль, мотоцикл, самолёт и т.д.)
+\end{enumerate}
+
+Читаем источник данных (файл в формате .xlsx) с помощью метода
+read\_excel библиотеки Pandas предазначенной для работы с данными,
+прежде всего для операций с DataFrames - основным способом представления
+данных используемым различным программным обеспечением в области Machine
+Learning / Data Science. Каждый лист Excel-я читаем отдельно получая для
+каждого листа отдельный датафрейм.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{excel\PYZus{}file} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{ExcelFile}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet0} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet0} \PY{o}{=} \PY{n}{sheet0}\PY{p}{[}\PY{n}{sheet0}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet0}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet1} \PY{o}{=} \PY{n}{sheet1}\PY{p}{[}\PY{n}{sheet1}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet1}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet2} \PY{o}{=} \PY{n}{sheet2}\PY{p}{[}\PY{n}{sheet2}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet2}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet3} \PY{o}{=} \PY{n}{sheet3}\PY{p}{[}\PY{n}{sheet3}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet3}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet4} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet4} \PY{o}{=} \PY{n}{sheet4}\PY{p}{[}\PY{n}{sheet4}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet4}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet5} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet5} \PY{o}{=} \PY{n}{sheet5}\PY{p}{[}\PY{n}{sheet5}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet5}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet6} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet6} \PY{o}{=} \PY{n}{sheet6}\PY{p}{[}\PY{n}{sheet6}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet6}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet7} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet7} \PY{o}{=} \PY{n}{sheet7}\PY{p}{[}\PY{n}{sheet7}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet7}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet8} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet8} \PY{o}{=} \PY{n}{sheet8}\PY{p}{[}\PY{n}{sheet8}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet8}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet9} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet9} \PY{o}{=} \PY{n}{sheet9}\PY{p}{[}\PY{n}{sheet9}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet9}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet10} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet10} \PY{o}{=} \PY{n}{sheet10}\PY{p}{[}\PY{n}{sheet10}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet10}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet11} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{11}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet11} \PY{o}{=} \PY{n}{sheet11}\PY{p}{[}\PY{n}{sheet11}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet11}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet12} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet12} \PY{o}{=} \PY{n}{sheet12}\PY{p}{[}\PY{n}{sheet12}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet12}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet13} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet13} \PY{o}{=} \PY{n}{sheet13}\PY{p}{[}\PY{n}{sheet13}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet13}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet14} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet14} \PY{o}{=} \PY{n}{sheet14}\PY{p}{[}\PY{n}{sheet14}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet14}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet15} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet15} \PY{o}{=} \PY{n}{sheet15}\PY{p}{[}\PY{n}{sheet15}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet15}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet16} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{n}{sheetname}\PY{o}{=}\PY{n}{excel\PYZus{}file}\PY{o}{.}\PY{n}{sheet\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{]}\PY{p}{,}
+        \PY{n}{skiprows}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+        \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{p}{)}
+\PY{n}{sheet16} \PY{o}{=} \PY{n}{sheet16}\PY{p}{[}\PY{n}{sheet16}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet16}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{sheet17} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{source\PYZus{}data\PYZus{}1.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{sheet17} \PY{o}{=} \PY{n}{sheet17}\PY{p}{[}\PY{n}{sheet17}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Unnamed: 11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ВНУТРЕННИЕ ЗАТРАТЫ НА НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+\PY{n}{sheet17}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Область /год}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+    Для дальнейших операций объединяем полученные датафреймы в список,
+который в свою очередь состоит из подсписков содержащих собственно сам
+датафрейм и ассоциированное с ним название максимально соответствующее
+русскому названию экселевского листа. В дальнейшем, эти названия станут
+именами столбцов датафреймов содержащих информацию разбитую по годам.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{list\PYZus{}of\PYZus{}df} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OrganizationNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{StaffNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PhDNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ph.DNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet4}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PostgraduateNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DoctoralNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet6}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PatentNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet7}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UsefulPatentsNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet8}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CreatedTechnologyNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet9}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UsefulTechnologyNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet10}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProportionOfOrganizationsToUseInternet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet11}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProportionOfInnovativeOrgainzations}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet12}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TechnologicalInnovationsCost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet13}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AmountOfInnovativeProducts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet14}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProportionOfInnovativeProducts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet15}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet16}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\PY{n}{list\PYZus{}of\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{sheet17}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{InternalCosts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    Отдельно сохраняем соответствующие русскоязычные названия в виде списка,
+в том же порядке в котором идут датафреймы в списке датафреймов.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{features\PYZus{}names\PYZus{}ru} \PY{o}{=} \PY{p}{[}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОРГАНИЗАЦИИ, ВЫПОЛНЯЮЩИЕ НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{численность персонала без ученых степеней, занятых НИОКР}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность исследователей, имеющих ученую степень,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{по субъектам Российской Федерации показатель}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{кандидата наук\PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность исследователей, имеющих ученую степень,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{по субъектам Российской Федерации показатель}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{доктора наук \PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность аспирантов по субъектам Российской Федерации \PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность докторантов по субъектам Российской Федерации 0человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ИЗОБРЕТЕНИЯ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{РАЗРАБОТАННЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ЗАТРАТЫ НА ТЕХНОЛОГИЧЕСКИЕ ИННОВАЦИИ ОРГАНИЗАЦИЙ (руб)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОБЪЕМ ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ (МИЛЛИОНОВ РУБЛЕЙ)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{численность населения по субъектам российской федерации}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(оценка на конец года; тысяч человек)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Валовой региональный продукт по субъектам Российской Федерации}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(в текущих  ценах;миллионов рублей)}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{]}
+\end{Verbatim}
+
+    Избаляемся от строчки <<ВСЕГО>> в каждом датафрейме из списка.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{df\PYZus{}container} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{list\PYZus{}of\PYZus{}df}\PY{p}{)}\PY{p}{:}
+    \PY{n}{df} \PY{o}{=} \PY{n}{df\PYZus{}container}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{n}{list\PYZus{}of\PYZus{}df}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{Region} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ВСЕГО}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}    
+\end{Verbatim}
+
+    Создаём список <<годовых>> датафреймов, каждый из которых содержит
+полный список показателей (features в терминах Data Science) для каждого
+региона (Столбцы - показатели, строки - регионы). Используем стандартную
+операцию Pandas-овских датафреймов merge (для объединения
+<<показательных>> датафреймов в <<годовые>>). В качестве
+столбца используемого для объединения используем столбец "Region". Т.е.
+объединяем все показатели по данному региону за год.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{merged\PYZus{}df\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2015}\PY{p}{)}\PY{p}{:}
+    \PY{n}{result\PYZus{}df}\PY{p}{,} \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{n}{list\PYZus{}of\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+    \PY{n}{result\PYZus{}df} \PY{o}{=} \PY{n}{result\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{year}\PY{p}{]}\PY{p}{]}
+    \PY{n}{result\PYZus{}df} \PY{o}{=} \PY{n}{result\PYZus{}df}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{year}\PY{p}{:} \PY{n}{feature\PYZus{}name}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    
+    \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{result\PYZus{}df}\PY{p}{)}
+    
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{18}\PY{p}{)}\PY{p}{:}
+        \PY{n}{merged\PYZus{}df}\PY{p}{,} \PY{n}{feature\PYZus{}name} \PY{o}{=} \PY{n}{list\PYZus{}of\PYZus{}df}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+        \PY{n}{merged\PYZus{}df} \PY{o}{=} \PY{n}{merged\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{year}\PY{p}{]}\PY{p}{]}
+        \PY{n}{merged\PYZus{}df} \PY{o}{=} \PY{n}{merged\PYZus{}df}\PY{o}{.}\PY{n}{rename\PYZus{}axis}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{year}\PY{p}{:} \PY{n}{feature\PYZus{}name}\PY{p}{\PYZcb{}} \PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2005}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}
+            \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{n}{year} \PY{o}{\PYZhy{}} \PY{l+m+mi}{2005}\PY{p}{]}\PY{p}{,}
+            \PY{n}{merged\PYZus{}df}\PY{p}{,}
+            \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Вспомогательные функции для корректировки некорректно представленных
+значений (например содержащих в качестве десятичного разделителя
+запятую) в датафреймах.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{str\PYZus{}to\PYZus{}num}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{s}\PY{p}{,} \PY{n+nb}{str}\PY{p}{)}\PY{p}{:}
+        \PY{n}{s} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{s1} \PY{o}{=} \PY{n}{s}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{if} \PY{n}{s1}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{n+nb}{float}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+    \PY{k}{return} \PY{n}{s}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{detect\PYZus{}minus}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{x} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+        \PY{k}{return} \PY{k+kc}{True}
+    \PY{k}{return} \PY{k+kc}{False}
+\end{Verbatim}
+
+    Импортируем стандартный класс библиотеки ScikitLearn для приведения
+значений к одному и тому же масштабу. Создаём экземпляр этого класса.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{MinMaxScaler}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Корректируем вручную одно из неправильных значений, а ко всему
+остальному применяем функции коррктировки.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}value}\PY{p}{(}\PY{l+m+mi}{36}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PostgraduateNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+\PY{n}{merged\PYZus{}df\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+    \PY{n}{prepared\PYZus{}df} \PY{o}{=} \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}\PY{n}{str\PYZus{}to\PYZus{}num}\PY{p}{)}
+    \PY{n}{prepared\PYZus{}df} \PY{o}{=} \PY{n}{prepared\PYZus{}df}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mf}{0.0} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{else} \PY{n}{x}\PY{p}{)}
+    \PY{n}{merged\PYZus{}df\PYZus{}dict}\PY{p}{[}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{2005}\PY{p}{]} \PY{o}{=} \PY{n}{prepared\PYZus{}df}   
+\end{Verbatim}
+
+    Объединяем список <<годовых>> датафреймов в один датафрейм с
+иеррархическим индексом <<Год/Регион>>. В дальнейшем будем
+производить кластеризацию используя именно этот датафрейм. Кластер в
+общем случае объединяет <<в чём то схожие>> регионы, причём кластер
+при этом имеет временную (ударение на <<у>>) проятжённость. Т.е.
+каждый кластер простирается от 2005-го года до 2014-го. И один и тот же
+регион в разные годы может принадлежать к различным кластерам (например
+в 2005 - к <<нулевому>>, в 2006 - ко <<второму>>, а в
+остальные годы - к <<первому>>) а может и всё время оставаться в
+одном и том же кластере.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{merged\PYZus{}df\PYZus{}dict}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df} \PY{o}{=} \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}\PY{n}{str\PYZus{}to\PYZus{}num}\PY{p}{)}
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df} \PY{o}{=} \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{applymap}\PY{p}{(}
+    \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{l+m+mf}{0.0} \PY{k}{if} \PY{n}{x} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{else} \PY{n}{x}
+\PY{p}{)}
+\end{Verbatim}
+
+    Корректируем вручную ещё два неверных значения.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{2014}\PY{p}{,} \PY{l+m+mi}{41}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1671397.10}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{l+m+mi}{2014}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{395700.10}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{droped\PYZus{}regions\PYZus{}hier\PYZus{}concatenated\PYZus{}df} \PY{o}{=} \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{p}{[}
+    \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{p}{]}
+\end{Verbatim}
+
+    Приводим к единому масштабу, используя ранее созданный экземпляр класса
+MinMaxScaler.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+        \PY{n}{scaler}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{droped\PYZus{}regions\PYZus{}hier\PYZus{}concatenated\PYZus{}df}\PY{p}{)}\PY{p}{,}
+        \PY{n}{columns}\PY{o}{=}\PY{n}{droped\PYZus{}regions\PYZus{}hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{columns}
+    \PY{p}{)}
+\end{Verbatim}
+
+    Алгоритмы машинного обучения в библиотеке ScikitLearn оформлены в виде
+классов, получающих на входе (при создании экземпляра класса) параметры
+определяюще работу соответствующего алгоритма. Далее при вызове метода
+fit созданный экземпляр класса получает значения используемые для
+обучения в виде массивов библиотеки Numpy. Извлекаем из датафрейма
+соответствующий массив Numpy просто обращаясь к полю датафрейма values.
+В качестве алгоритам класстеризации используем MeanShift. В частности,
+потому что он не требует заранее задавать количество кластеров (в
+отличие например от наиболее популярного алгоритма
+<<обучения без учителя>> K-Means). Создаём экземпляр класса
+MeanShift, задавая ему некоторые из параметров. Далее вызываем
+стандартный для всех классов ScikitLearn реализующих методы машинного
+обучения метод fit передавая ему массив обучающих значений. После
+обращаясь уже к <<обученному>> (произведшему класстеризацию)
+экземпляру класса выводим количество получившихся кластеров.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{prepared\PYZus{}df\PYZus{}values} \PY{o}{=} \PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df}\PY{o}{.}\PY{n}{values}
+\PY{n}{bandwidth} \PY{o}{=} \PY{n}{cluster}\PY{o}{.}\PY{n}{estimate\PYZus{}bandwidth}\PY{p}{(}
+    \PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{p}{,}
+    \PY{n}{quantile}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}
+    \PY{n}{n\PYZus{}samples}\PY{o}{=}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\PY{p}{)}
+\PY{n}{ms} \PY{o}{=} \PY{n}{cluster}\PY{o}{.}\PY{n}{MeanShift}\PY{p}{(}\PY{n}{bandwidth}\PY{o}{=}\PY{n}{bandwidth}\PY{p}{,} \PY{n}{bin\PYZus{}seeding}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{ms}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{p}{)}
+\PY{n}{labels} \PY{o}{=} \PY{n}{ms}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\PY{n}{cluster\PYZus{}centres} \PY{o}{=} \PY{n}{ms}\PY{o}{.}\PY{n}{cluster\PYZus{}centers\PYZus{}}
+\PY{n}{labels\PYZus{}unique} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{labels}\PY{p}{)}
+\PY{n}{n\PYZus{}clusters\PYZus{}} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{labels\PYZus{}unique}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Количество кластеров: }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{n\PYZus{}clusters\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Количество кластеров: 4
+
+    \end{Verbatim}
+
+    Выводим (используя библиотеку Seaborn) кроскорреляционную матрицу. Кроме
+значения коэффициента корреляции степень корреляции выделяется цветом.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{)}\PY{p}{)}
+\PY{n}{heatmap\PYZus{}fig} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}
+    \PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+    \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{annot\PYZus{}kws}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{size}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{24}\PY{p}{\PYZcb{}}\PY{p}{,}
+    \PY{n}{cbar}\PY{o}{=}\PY{k+kc}{False}
+\PY{p}{)}
+\PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{heatmap\PYZus{}fig}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{item}\PY{o}{.}\PY{n}{set\PYZus{}fontsize}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{)}
+\PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{heatmap\PYZus{}fig}\PY{o}{.}\PY{n}{get\PYZus{}yticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{item}\PY{o}{.}\PY{n}{set\PYZus{}fontsize}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{)}
+\PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{heatmap\PYZus{}fig}\PY{o}{.}\PY{n}{get\PYZus{}label}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{item}\PY{o}{.}\PY{n}{set\PYZus{}fontsize}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{cross\PYZus{}corr\PYZus{}matrix} \PY{o}{=} \PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Далее нам необходимо как то графически отобразить полученную в
+результате клстеризации информацию, для того что бы эти самые результаты
+хотя бы как нибудь понять. А для этого нам необходимо отробрать наиболее
+<<важные>> показатели. Мы можем для этого использовать полученную
+шагом ранее кроскореляционную матрицу выбрав наименее коррелирующие пары
+показателей. Но этот подход выявляет только линейные зависимости, и
+ктому же нам придётся самим как-то писать дополнительный программный код
+для автоматизации этого выбора (что довольно громоздко) либо выбирать
+пары вручную что трудно и времязатратно. Попробуем применить другой
+подход. Воспользуемся тем что некоторые методы
+<<обучения с учителем>> (supervised learning) могут ранжировать
+признаки (features, столбцы) по степени важности. В частности таким
+свойством обладают методы основанные на объединении (ensemble) деревьев
+решений, например Random Forest (<<Лес случайных деревьев>>
+https://www.stat.berkeley.edu/\textasciitilde{}breiman/RandomForests/cc\_home.htm).
+В каждом узле такого дерева присходит вычисление энтропии по Шеннону
+либо значение критерия Джинни
+(https://datascience.stackexchange.com/questions/10228/gini-impurity-vs-entropy),
+что автоматически даёт нам так же выявление нелинейных зависимостей. А
+разметка по классам необходимая для применения методов supervised
+learning у нас уже есть - принадлежность к тому или иному кластеру мы
+можем трактовать как принадлежность к соответсвующему классу. Создаём
+копию датафрейма
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{prepared\PYZus{}for\PYZus{}supevised\PYZus{}df} \PY{o}{=} \PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Создаём отдельное поле (столбец) которое и будет содержать метку класса
+(номер кластера).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{prepared\PYZus{}for\PYZus{}supevised\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster\PYZus{}class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labels}
+\end{Verbatim}
+
+    Определяем вспомогательную функцию которая понадобиться для определения
+лучшего сочетания параметров выбранного метода supervised learning
+(Random Forest-а)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{report\PYZus{}best\PYZus{}score}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{n}{n\PYZus{}top}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}top} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+        \PY{n}{candidates} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{flatnonzero}\PY{p}{(}\PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rank\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{)}
+        \PY{k}{for} \PY{n}{candidate} \PY{o+ow}{in} \PY{n}{candidates}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model with rank: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean validation score: }\PY{l+s+si}{\PYZob{}0:.3f\PYZcb{}}\PY{l+s+s2}{ (std: }\PY{l+s+si}{\PYZob{}1:.3f\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                  \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{p}{,}
+                  \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std\PYZus{}test\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}Parameters:\PYZbs{}n\PYZob{}0\PYZcb{}\PYZdq{}.format(results[\PYZsq{}params\PYZsq{}][candidate]))}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Parameters:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}parameters\PYZus{}values = results[\PYZsq{}params\PYZsq{}][candidate]}
+            \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{results}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{candidate}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{name}\PY{p}{,} \PY{n}{value}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Создаём экземпляр стандартного ScikitLearn класса RandomForestClassifier
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+    Произвёдем определение наилучшего сочетания значений параметров
+RandomForestClassifier-а посредством простого пойска по сетке значений
+параметров. Определяем допустимые диапазоны значений различных
+параметров Random Forest-а, для дальнейшего применения пойска наилучшего
+сочетания значений параметров по сетке значений. Создаём экземпляр
+класса GridSearchCV реализующего алгоритм пойска по сетке.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{param\PYZus{}grid} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}depth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}split}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}samples\PYZus{}leaf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bootstrap}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}\PY{p}{,}
+              \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{criterion}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+\PY{n}{grid\PYZus{}search} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{param\PYZus{}grid}\PY{p}{)}
+\end{Verbatim}
+
+    Производим пойск по сетке значений параметров.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GridSearchCV took }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{ seconds for }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ candidate parameter settings.}\PY{l+s+s2}{\PYZdq{}}
+      \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{params}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{report\PYZus{}best\PYZus{}score}\PY{p}{(}\PY{n}{grid\PYZus{}search}\PY{o}{.}\PY{n}{cv\PYZus{}results\PYZus{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+GridSearchCV took 66.32 seconds for 216 candidate parameter settings.
+Model with rank: 1
+Mean validation score: 0.955 (std: 0.042)
+Parameters:
+
+	bootstrap: False
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 2
+
+Model with rank: 2
+Mean validation score: 0.952 (std: 0.043)
+Parameters:
+
+	bootstrap: False
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 10
+
+Model with rank: 3
+Mean validation score: 0.951 (std: 0.047)
+Parameters:
+
+	bootstrap: True
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 2
+
+Model with rank: 3
+Mean validation score: 0.951 (std: 0.045)
+Parameters:
+
+	bootstrap: True
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 3
+
+Model with rank: 3
+Mean validation score: 0.951 (std: 0.024)
+Parameters:
+
+	bootstrap: False
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 3
+	min\_samples\_leaf: 3
+	min\_samples\_split: 10
+
+
+    \end{Verbatim}
+
+    Создаём экземпляр RandomForestClassifier-а подставляя найденный
+наилучший набор значений параметров.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{better\PYZus{}clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}
+    \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,}
+    \PY{n}{bootstrap}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,}
+    \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}
+    \PY{n}{min\PYZus{}samples\PYZus{}leaf}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}
+    \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{2}
+\PY{p}{)}
+\end{Verbatim}
+
+    Запускаем процесс обучения классификатора.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{better\PYZus{}clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+\end{Verbatim}
+
+            RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=7, max\_features=10, max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=20, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+        
+    Определяем важность показателей (features) инновационности (номера
+соответсвующих столбцов). И выводим диаграмму в графическом виде
+представляющую важность показателей (в виде высоты столбцов).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{importances} \PY{o}{=} \PY{n}{better\PYZus{}clf}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+\PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}
+    \PY{p}{[}\PY{n}{tree}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}} \PY{k}{for} \PY{n}{tree} \PY{o+ow}{in} \PY{n}{better\PYZus{}clf}\PY{o}{.}\PY{n}{estimators\PYZus{}}\PY{p}{]}\PY{p}{,}
+    \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}
+\PY{p}{)}
+\PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature ranking:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{. feature }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{f} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature importances}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,}
+       \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{indices}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Feature ranking:
+1. feature 11 (0.273297)
+2. feature 10 (0.260801)
+3. feature 7 (0.080245)
+4. feature 9 (0.080096)
+5. feature 1 (0.068339)
+6. feature 14 (0.063553)
+7. feature 13 (0.043639)
+8. feature 16 (0.029902)
+9. feature 0 (0.023914)
+10. feature 15 (0.014655)
+11. feature 6 (0.013977)
+12. feature 2 (0.011155)
+13. feature 5 (0.009233)
+14. feature 4 (0.008046)
+15. feature 8 (0.007112)
+16. feature 17 (0.006147)
+17. feature 3 (0.003893)
+18. feature 12 (0.001996)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_68_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Как видим самым важным (весомым) показателем оказался показатель с
+номером десять (считая от нуля) -
+<<УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ>>
+Выделяем в отдельный DataSeries (одномерный DataFrame) имена
+(англязычные) показателей.
+
+    Далее нам надо отобразить класстеризованные регионы на двумернных
+проекциях попарных сочетаний соответсвующих показателей. Для этого мы и
+выбирали наиболее значимые показатели - что бы сократить число выводимых
+двумерных проекций. Задача графического отображения класстеризованных
+регионов на проекциях требует указания множества различных параметров
+отображения, и является довольно громоздкой. Для её решения был создан
+класс ClustersDrawer, исходный код (текст) которого вынесен в отдельный
+файл clusters\_drawer.py
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{X} \PY{o}{=} \PY{n}{prepared\PYZus{}df\PYZus{}values}
+\PY{n}{cluster\PYZus{}labels} \PY{o}{=} \PY{n}{ms}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{clusters\PYZus{}drawer}
+\end{Verbatim}
+
+    Среди задаваемых параметров следует выделить ms - обученный MeanShift
+кластеризатор содержащий информацию о кластерах (принадлежности того или
+иного региона к тому или иному кластеру) и tuple (10, 7, 9, 14, 1) -
+номера наиболее важных показателей.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{drawer} \PY{o}{=} \PY{n}{clusters\PYZus{}drawer}\PY{o}{.}\PY{n}{ClustersDrawer}\PY{p}{(}
+    \PY{n}{plt}\PY{p}{,}
+    \PY{n}{ms}\PY{p}{,}
+    \PY{n}{X}\PY{p}{,}
+    \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+    \PY{n}{features\PYZus{}names}\PY{o}{=}\PY{n}{features\PYZus{}names\PYZus{}ru}\PY{p}{,}
+    \PY{n}{data\PYZus{}colors} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{violet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{p}{)}
+\PY{n}{drawer}\PY{o}{.}\PY{n}{data\PYZus{}point\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{100}
+\PY{n}{drawer}\PY{o}{.}\PY{n}{draw}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 2
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 3
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 4
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 5
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 6
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 7
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 8
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 9
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+	 10
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_74_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{indexes} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{drawer}\PY{o}{.}\PY{n}{pair\PYZus{}list}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{14}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+    \PY{n}{x\PYZus{}index}\PY{p}{,} \PY{n}{y\PYZus{}index} \PY{o}{=} \PY{n}{indexes}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i}\PY{p}{,} \PY{n}{features\PYZus{}names\PYZus{}ru}\PY{p}{[}\PY{n}{x\PYZus{}index}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ | }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{features\PYZus{}names\PYZus{}ru}\PY{p}{[}\PY{n}{y\PYZus{}index}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+ 0 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ
+
+ 1 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+ 2 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 3 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 4 КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ 
+ |  ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+ 5 КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 6 КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 7 ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 8 ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 9 УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%) 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+    \end{Verbatim}
+
+    Сразу стоит указать, что на каждом изображении (двумерной проекции)
+содеражится полный временной (ударение на <<о>>) слепок каждого
+кластера. То есть каждый регион на изображении скорее всего встречается
+несколько раз, равное количеству лет охватываемым временным диапазоном
+на протяжении которого мы кластеризуем. причём он может быть в общем
+случае быть обозначен разными значками с разным цветом, обозначающими
+принадлежность к разным кластерам (может с течением времени
+<<путешествовать>> по кластерам). Далее можно попробовать сделать
+некие общие выводы глядя на построенные нами scatter plot диаграммы, и
+попробовать определить критерии принадлежности к каждому кластеру (или
+иначе - попробовать на человеческом языке как то назвать полученные
+кластеры). В качестве примера подробнее разберём первый же рисунок, на
+которм изображена зависимость количества полезных моделей в зависимости
+от <<степени интернатизации>>. Глядя на изображение можно сделать
+выввод, что большая часть регионов на протяжении срока наблюдения
+попадает в кластер 1 для которого довольно высокие значения независимой
+переменной (степени интернатизации) не приводят тем не менее к высоким
+значениям зависимой (ну или лучше сказать
+<<коррелирующей, причём возможно нелинейно>>) переменной
+(количеству полезных патентов). Кластер 2 можно охарактеризовать тем,
+что низкие значения независимой переменной соответсвуют низким значениям
+зависимой. Кластер 3 можно охарактеризовать тем, что для него высокие
+значения независимой переменной соответствует высоким значениям
+зависимой. Про кластер 4 из анализа 1-го изображения пока ничего
+определённого сказать нельзя, на первый взгляд он не отличается от
+кластера 1. Анализ последующих изображений подтверждает выводы о
+кластерах 1, 2, 3, и проясняет характеристики кластера 4. Итак:
+
+\begin{enumerate}
+\item Кластер 1. Можно охарактеризовать понятием <<середнячки>>, или <<эффективность от невысокой до средней>>, или <<не очень высокая инновационная отдача на относительно (или даже абсолютно) высокие вложения>>.
+\item Кластер 2. Можно охарактеризовать понятием <<отстающие>>, или <<малая иновационная отдача в ответ на малые вложения>>.
+\item Кластер 3. <<Лидеры>>. Характеризуються высокой инновационной отдачей в ответ на высокие вложения.
+\item Кластер 4. Можно охарактеризовать понятием <<аномальная эффективность>>. По некоторым параметрам ведут себя как представители класса 1, но по некоторым показывают высокую инновационную отдачу в ответ на низкие вложения.
+\end{enumerate}
+
+    Выводим списки регионов сгрупированные в кластера по годам. Для этого
+добавляем в главный датафрейм с которым мы оперируем информацию о
+принадлежности региона к кластеру в виде столбца \verb'"cluster_label"'.
+Разделяем главный датафрейм на список датафреймов в котором каждый
+элемент списка - отдельный кластер.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{ms}\PY{o}{.}\PY{n}{labels\PYZus{}}
+\PY{n}{clusters} \PY{o}{=} \PY{p}{[}
+    \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster\PYZus{}label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{i}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}
+\PY{p}{]}
+\end{Verbatim}
+
+    Определям функцию для разбиения кластера (датафрейма в котором регионы
+сгрупированны по кластерам) по годам.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{decompose\PYZus{}clusters\PYZus{}by\PYZus{}years}\PY{p}{(}\PY{n}{clusters}\PY{p}{,} \PY{n}{years}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{n}{year}\PY{p}{:} \PY{p}{[}\PY{n}{cluster}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{year}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{k}{for} \PY{n}{cluster} \PY{o+ow}{in} \PY{n}{clusters}\PY{p}{]} \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n}{years}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+    Определяем временной диапазон.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{years} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2005}\PY{p}{,} \PY{l+m+mi}{2015}\PY{p}{)}
+\end{Verbatim}
+
+    Разбиваем кластера по годам.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{clusters\PYZus{}by\PYZus{}years} \PY{o}{=} \PY{n}{decompose\PYZus{}clusters\PYZus{}by\PYZus{}years}\PY{p}{(}\PY{n}{clusters}\PY{p}{,} \PY{n}{years}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n}{years}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Год: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{year}\PY{p}{)}
+    \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{cluster} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{clusters\PYZus{}by\PYZus{}years}\PY{p}{[}\PY{n}{year}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Кластер: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(cluster.columns)}
+        \PY{c+c1}{\PYZsh{}print(cluster)}
+        \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{cluster}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{name}\PY{p}{)}    
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+
+Год:  2005
+
+Кластер:  1
+Белгородская область
+Владимирская область
+Воронежская область
+Калужская область
+Липецкая область
+Рязанская область
+Тамбовская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Удмуртская Республика
+Чувашская Республика
+Оренбургская область
+Пензенская область
+Саратовская область
+Челябинская область
+Республика Алтай
+Республика Хакасия
+Алтайский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Магаданская область
+Сахалинская область
+Чукотский автономный округ
+
+Кластер:  2
+Брянская область
+Ивановская область
+Костромская область
+Курская область
+Смоленская область
+Тверская область
+Архангельская область
+Республика Калмыкия
+Республика Ингушетия
+Чеченская Республика
+Республика Мордовия
+Кировская область
+Ульяновская область
+Курганская область
+Тюменская область
+Республика Бурятия
+Республика Тыва
+Забайкальский край
+Амурская область
+Еврейская автономная область
+
+Кластер:  3
+Московская область
+Орловская область
+Тульская область
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Самарская область
+Свердловская область
+
+Кластер:  4
+
+
+Год:  2006
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Чувашская Республика
+Оренбургская область
+Пензенская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Магаданская область
+Сахалинская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Республика Калмыкия
+Республика Ингушетия
+Чеченская Республика
+Кировская область
+Тюменская область
+Республика Тыва
+
+Кластер:  3
+Московская область
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Самарская область
+Свердловская область
+
+Кластер:  4
+
+
+Год:  2007
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Удмуртская Республика
+Чувашская Республика
+Кировская область
+Оренбургская область
+Пензенская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Магаданская область
+Сахалинская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Республика Ингушетия
+Чеченская Республика
+Тюменская область
+Республика Тыва
+
+Кластер:  3
+Московская область
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Самарская область
+Свердловская область
+
+Кластер:  4
+Республика Мордовия
+
+
+Год:  2008
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Московская область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Чувашская Республика
+Кировская область
+Оренбургская область
+Пензенская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Сахалинская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Чеченская Республика
+Тюменская область
+Республика Тыва
+
+Кластер:  3
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Самарская область
+Свердловская область
+Магаданская область
+
+Кластер:  4
+
+
+Год:  2009
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Московская область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Чувашская Республика
+Кировская область
+Оренбургская область
+Пензенская область
+Самарская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Сахалинская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Тюменская область
+
+Кластер:  3
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Свердловская область
+Магаданская область
+
+Кластер:  4
+
+
+Год:  2010
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Московская область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Чувашская Республика
+Кировская область
+Оренбургская область
+Пензенская область
+Самарская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Сахалинская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Тюменская область
+
+Кластер:  3
+Москва
+Республика Татарстан
+Пермский край
+Нижегородская область
+Свердловская область
+Магаданская область
+
+Кластер:  4
+
+
+Год:  2011
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Чувашская Республика
+Пермский край
+Кировская область
+Оренбургская область
+Пензенская область
+Самарская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Приморский край
+Хабаровский край
+Амурская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Тюменская область
+
+Кластер:  3
+Московская область
+Москва
+Республика Татарстан
+Нижегородская область
+Свердловская область
+Республика Алтай
+Камчатский край
+Магаданская область
+
+Кластер:  4
+Сахалинская область
+
+
+Год:  2012
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Республика Мордовия
+Удмуртская Республика
+Пермский край
+Кировская область
+Оренбургская область
+Пензенская область
+Саратовская область
+Ульяновская область
+Курганская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Приморский край
+Хабаровский край
+Амурская область
+Еврейская автономная область
+Чукотский автономный округ
+
+Кластер:  2
+Архангельская область
+Тюменская область
+
+Кластер:  3
+Московская область
+Москва
+Республика Татарстан
+Чувашская Республика
+Нижегородская область
+Свердловская область
+Камчатский край
+Магаданская область
+
+Кластер:  4
+Самарская область
+Сахалинская область
+
+
+Год:  2013
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Липецкая область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Удмуртская Республика
+Чувашская Республика
+Пермский край
+Кировская область
+Оренбургская область
+Пензенская область
+Самарская область
+Саратовская область
+Ульяновская область
+Курганская область
+Свердловская область
+Тюменская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Еврейская автономная область
+
+Кластер:  2
+
+Кластер:  3
+Московская область
+Москва
+Республика Мордовия
+Республика Татарстан
+Нижегородская область
+Магаданская область
+Чукотский автономный округ
+
+Кластер:  4
+Архангельская область
+Сахалинская область
+
+
+Год:  2014
+
+Кластер:  1
+Белгородская область
+Брянская область
+Владимирская область
+Воронежская область
+Ивановская область
+Калужская область
+Костромская область
+Курская область
+Орловская область
+Рязанская область
+Смоленская область
+Тамбовская область
+Тверская область
+Тульская область
+Ярославская область
+Республика Карелия
+Республика Коми
+Архангельская область
+Ненецкий автономный округ
+Вологодская область
+Калинингpадская область
+Ленинградская область
+Мурманская область
+Новгородская область
+Псковская область
+Республика Адыгея
+Республика Калмыкия
+Краснодарский край
+Астраханская область
+Волгоградская область
+Ростовская область
+Республика Дагестан
+Республика Ингушетия
+Чеченская Республика
+Ставропольский край
+Республика Башкортостан
+Республика Марий Эл
+Удмуртская Республика
+Пермский край
+Кировская область
+Оренбургская область
+Пензенская область
+Самарская область
+Саратовская область
+Ульяновская область
+Курганская область
+Свердловская область
+Тюменская область
+Челябинская область
+Республика Алтай
+Республика Бурятия
+Республика Тыва
+Республика Хакасия
+Алтайский край
+Забайкальский край
+Красноярский край
+Иркутская область
+Кемеровская область
+Новосибирская область
+Омская область
+Томская область
+Республика Саха (Якутия)
+Камчатский край
+Приморский край
+Хабаровский край
+Амурская область
+Магаданская область
+Еврейская автономная область
+
+Кластер:  2
+
+Кластер:  3
+Липецкая область
+Московская область
+Москва
+Республика Мордовия
+Республика Татарстан
+Чувашская Республика
+Нижегородская область
+Чукотский автономный округ
+
+Кластер:  4
+Сахалинская область
+
+    \end{Verbatim}
+
+    Из полученного разбиения кластеров по годам можно сделать несколько
+выводов:
+
+\begin{enumerate}
+\item Не во все года в кластер 4 (<<Аномальная эффективность>>) попадает хотя бы один регион. Более того, регионы начинают попадать в кластер 4 начиная с середины срока наблюдения, и в особенности ближе к концу срока.
+\item Кластер 2 (<<Отстающие>>) со временем исчезает (<<рассасывается>>) регионы перемещаються из него, в основном в кластер 1 (<<Середнячки>>).
+\item Большая часть регионов надёжно остаються в своих кластерах, но есть и регионы перемещающиеся в другие кластера (например регионы из разряда <<Отстающие>> перемещающиеся в <<Середнячки>>) и регионы <<бродящие>> по различным кластерам, например Самарская область, или Архангельская область которая из <<Отстающих>> переместилась в <<Аномальные>>.
+\item Большая часть регионов со временем сосредоточилась в кластере 1.
+\end{enumerate}
+
+    Далее необходимо решить задачу отображения информации о кластеризованных
+регионах на карте административных единиц Российской Федерации.
+
+    Загружаем значения кодов регионов.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}codes\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{codes.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{;}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{region\PYZus{}codes\PYZus{}with\PYZus{}names} \PY{o}{=} \PY{n}{region\PYZus{}codes\PYZus{}df}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+    Загружаем карту административных единиц РФ с сопутствующей информацией.
+Карты в формате Shapefile находяться в свободном доступе здесь:
+https://gadm.org/data.html. Для работы с картами в данном формате
+используетя Python библиотека с таким же названием.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{rus\PYZus{}adm\PYZus{}units} \PY{o}{=} \PY{n}{shapefile}\PY{o}{.}\PY{n}{Reader}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unzip/RUS\PYZus{}adm1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    Из загруженных данных читаем информацию о регионах (содержащую, в
+частности названия регионов), и собственно, само геометрическое описание
+регионов (в виде неких многоугольников).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}records} \PY{o}{=} \PY{n}{rus\PYZus{}adm\PYZus{}units}\PY{o}{.}\PY{n}{records}\PY{p}{(}\PY{p}{)}
+\PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}shapes} \PY{o}{=} \PY{n}{rus\PYZus{}adm\PYZus{}units}\PY{o}{.}\PY{n}{shapes}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Дальше определено несколько вспомогательных функций/участков кода в
+основном предназначенных для сопоставления названий регионов
+(административных единиц) взятых из различных источников: данных о
+иновационной активности, кодов регионов, географической информации. Из
+каждого названия выделяется основная (значимая) часть. Многие регионы в
+различных источниках пишуться по разному, применяються различные
+аббревиатуры, и т.д, поэтому некоторые названия пришлось сопоставлять
+вручную. Имена (названия) определяемых функция и переменных даны с
+учётом того что имя должно сообщать максимальную информацию о смысле
+данной функции (переменной), с другой стороны возможности да и
+необходимости давать (и, следовательно придумывать) максимально
+<<красивые>> имена с точки зрения программирования у нас здесь нет,
+поэтому имена получились такими, какими получились. Так же с помощью
+определённых далее вспомогательных функций производиться сопоставление
+регионов (их индексов в соответствующих списках) из различных
+источников, на основе ранее выделенных главных частей названий, что
+нужно для отрисовки регионов с их кодами на карте.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}map\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{if} \PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Москва}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{record} \PY{o+ow}{in} \PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}records}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{cutted\PYZus{}name\PYZus{}part} \PY{o}{=} \PY{p}{(}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{край}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{область}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{республика}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{аок}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{аоб}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(якутия)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{респу}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{респуб}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(горсовет)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{автономный}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{автономная}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{округ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{респу́блика}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}
+\PY{k}{def} \PY{n+nf}{extract\PYZus{}main\PYZus{}name\PYZus{}part}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{:}
+    \PY{n}{lower\PYZus{}case\PYZus{}name} \PY{o}{=} \PY{n}{name}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+    \PY{n}{splitted\PYZus{}name} \PY{o}{=} \PY{n}{lower\PYZus{}case\PYZus{}name}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{main\PYZus{}name\PYZus{}part\PYZus{}components} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{name\PYZus{}part} \PY{o+ow}{in} \PY{n}{splitted\PYZus{}name}\PY{p}{:}
+        \PY{k}{if} \PY{n}{name\PYZus{}part} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{cutted\PYZus{}name\PYZus{}part}\PY{p}{:}
+            \PY{n}{main\PYZus{}name\PYZus{}part\PYZus{}components}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name\PYZus{}part}\PY{p}{)}
+    \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{main\PYZus{}name\PYZus{}part\PYZus{}components}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{p}{[}\PY{n}{extract\PYZus{}main\PYZus{}name\PYZus{}part}\PY{p}{(}\PY{n}{name}\PY{p}{)} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{region\PYZus{}map\PYZus{}names}\PY{p}{]}
+\PY{n}{region\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{p}{[}
+    \PY{n}{extract\PYZus{}main\PYZus{}name\PYZus{}part}\PY{p}{(}\PY{n}{record}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{record} \PY{o+ow}{in} \PY{n}{region\PYZus{}codes\PYZus{}with\PYZus{}names}
+\PY{p}{]}
+\PY{n}{region\PYZus{}codes} \PY{o}{=} \PY{p}{[}\PY{n}{record}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}  \PY{k}{for} \PY{n}{record} \PY{o+ow}{in} \PY{n}{region\PYZus{}codes\PYZus{}with\PYZus{}names}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{fix\PYZus{}names}\PY{p}{(}\PY{n}{region\PYZus{}names}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{}sverdlovsk\PYZus{}count = 0}
+    \PY{n}{fixed\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{region\PYZus{}names}\PY{p}{:}
+        \PY{k}{if} \PY{n}{name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{калинингpадская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{fixed\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{калининградская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ингуше́тия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{fixed\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ингушетия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{fixed\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+    \PY{k}{return} \PY{n}{fixed\PYZus{}names}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fixed\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{n}{fix\PYZus{}names}\PY{p}{(}\PY{n}{region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}\PY{p}{)}
+\PY{n}{fixed\PYZus{}regions\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{n}{fix\PYZus{}names}\PY{p}{(}\PY{n}{region\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}names\PYZus{}from\PYZus{}dataset} \PY{o}{=} \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}names\PYZus{}from\PYZus{}dataset\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{p}{[}
+    \PY{n}{extract\PYZus{}main\PYZus{}name\PYZus{}part}\PY{p}{(}\PY{n}{name}\PY{p}{)} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{region\PYZus{}names\PYZus{}from\PYZus{}dataset}
+\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fixed\PYZus{}region\PYZus{}names\PYZus{}from\PYZus{}dataset\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{n}{fix\PYZus{}names}\PY{p}{(}\PY{n}{region\PYZus{}names\PYZus{}from\PYZus{}dataset\PYZus{}main\PYZus{}part}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{correct\PYZus{}names\PYZus{}from\PYZus{}unit\PYZus{}map}\PY{p}{(}\PY{n}{region\PYZus{}names}\PY{p}{)}\PY{p}{:}
+    \PY{n}{corrected\PYZus{}region\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{region\PYZus{}name} \PY{o+ow}{in} \PY{n}{region\PYZus{}names}\PY{p}{:}
+        \PY{k}{if} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{пермская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{пермский}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{камчатская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{камчатский}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{чечено\PYZhy{}ингушска}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{чеченская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eврейская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{еврейская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{карачаево\PYZhy{}черкесская}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{карачаево\PYZhy{}черкессия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ханты\PYZhy{}мансийский \PYZhy{} югра}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ханты\PYZhy{}мансийский}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{elif} \PY{n}{region\PYZus{}name} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{северная осетия \PYZhy{} алания}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{северная осетия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{else}\PY{p}{:}
+            \PY{n}{corrected\PYZus{}region\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{region\PYZus{}name}\PY{p}{)}
+    \PY{k}{return} \PY{n}{corrected\PYZus{}region\PYZus{}names}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{corrected\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{n}{correct\PYZus{}names\PYZus{}from\PYZus{}unit\PYZus{}map}\PY{p}{(}
+    \PY{n}{fixed\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}
+\PY{p}{)}    
+\PY{n}{corrected\PYZus{}regions\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part} \PY{o}{=} \PY{n}{correct\PYZus{}names\PYZus{}from\PYZus{}unit\PYZus{}map}\PY{p}{(}
+    \PY{n}{fixed\PYZus{}regions\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part}
+\PY{p}{)}
+\PY{n}{region\PYZus{}codes\PYZus{}description} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{code}\PY{p}{,} \PY{n}{name\PYZus{}main\PYZus{}part}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)} \PY{k}{for} \PY{n}{code}\PY{p}{,} \PY{n}{name\PYZus{}main\PYZus{}part} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}
+    \PY{n}{region\PYZus{}codes}\PY{p}{,}
+    \PY{n}{corrected\PYZus{}regions\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part}
+\PY{p}{)}\PY{p}{]}
+\PY{c+c1}{\PYZsh{}print(region\PYZus{}codes\PYZus{}description)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{region\PYZus{}map\PYZus{}name\PYZus{}main\PYZus{}part} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{corrected\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}\PY{p}{)}\PY{p}{:}
+    \PY{k}{for} \PY{n}{j}\PY{p}{,} \PY{n}{region\PYZus{}code\PYZus{}name\PYZus{}main\PYZus{}part} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{corrected\PYZus{}regions\PYZus{}codes\PYZus{}names\PYZus{}main\PYZus{}part}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if} \PY{n}{region\PYZus{}map\PYZus{}name\PYZus{}main\PYZus{}part} \PY{o}{==} \PY{n}{region\PYZus{}code\PYZus{}name\PYZus{}main\PYZus{}part}\PY{p}{:}
+            \PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{j}
+            \PY{k}{break}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{extract\PYZus{}sign\PYZus{}part\PYZus{}clustered\PYZus{}names}\PY{p}{(}\PY{n}{clusters\PYZus{}by\PYZus{}years}\PY{p}{)}\PY{p}{:}
+    \PY{n}{sign\PYZus{}names\PYZus{}part} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+    \PY{c+c1}{\PYZsh{}print(clusters\PYZus{}by\PYZus{}years)}
+    \PY{k}{for} \PY{n}{year}\PY{p}{,} \PY{n}{clustered\PYZus{}names\PYZus{}list} \PY{o+ow}{in} \PY{n}{clusters\PYZus{}by\PYZus{}years}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        \PY{n}{main\PYZus{}names\PYZus{}parts} \PY{o}{=} \PY{p}{[}
+            \PY{p}{[}
+                \PY{n}{extract\PYZus{}main\PYZus{}name\PYZus{}part}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+                \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{clustered\PYZus{}names}
+            \PY{p}{]}
+            \PY{k}{for} \PY{n}{clustered\PYZus{}names} \PY{o+ow}{in} \PY{n}{clustered\PYZus{}names\PYZus{}list}
+        \PY{p}{]}
+        \PY{n}{sign\PYZus{}names\PYZus{}part}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{=} \PY{p}{[}
+            \PY{n}{fix\PYZus{}names}\PY{p}{(}\PY{n}{main\PYZus{}names\PYZus{}parts\PYZus{}cluster}\PY{p}{)}
+            \PY{k}{for} \PY{n}{main\PYZus{}names\PYZus{}parts\PYZus{}cluster} \PY{o+ow}{in} \PY{n}{main\PYZus{}names\PYZus{}parts}
+        \PY{p}{]}
+    \PY{k}{return} \PY{n}{sign\PYZus{}names\PYZus{}part}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{clustered\PYZus{}sign\PYZus{}names\PYZus{}parts} \PY{o}{=} \PY{n}{extract\PYZus{}sign\PYZus{}part\PYZus{}clustered\PYZus{}names}\PY{p}{(}
+    \PY{n}{clusters\PYZus{}by\PYZus{}years}
+\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{find\PYZus{}cluster\PYZus{}map\PYZus{}indexes}\PY{p}{(}
+        \PY{n}{year\PYZus{}clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{,}
+        \PY{n}{corrected\PYZus{}region\PYZus{}names\PYZus{}main\PYZus{}part}
+    \PY{p}{)}\PY{p}{:}
+    \PY{n}{year\PYZus{}cluster\PYZus{}indexes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{n}{year\PYZus{}cluster\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{name} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{corrected\PYZus{}region\PYZus{}names\PYZus{}main\PYZus{}part}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if} \PY{n}{name} \PY{o+ow}{in} \PY{n}{year\PYZus{}clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{:}
+            \PY{n}{year\PYZus{}cluster\PYZus{}indexes}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+            \PY{n}{year\PYZus{}cluster\PYZus{}names}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+    \PY{k}{return} \PY{n}{year\PYZus{}cluster\PYZus{}indexes}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{clustered\PYZus{}names\PYZus{}to\PYZus{}map\PYZus{}indexes}\PY{p}{(}
+        \PY{n}{years}\PY{p}{,}
+        \PY{n}{clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{,}
+        \PY{n}{corrected\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}
+    \PY{p}{)}\PY{p}{:}
+    \PY{n}{clustered\PYZus{}map\PYZus{}indexes} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+    \PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n}{years}\PY{p}{:}
+        \PY{n}{clustered\PYZus{}map\PYZus{}indexes}\PY{p}{[}\PY{n}{year}\PY{p}{]} \PY{o}{=} \PY{p}{[}
+            \PY{n}{find\PYZus{}cluster\PYZus{}map\PYZus{}indexes}\PY{p}{(}
+                \PY{n}{year\PYZus{}clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{,}
+                \PY{n}{corrected\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}
+            \PY{p}{)} \PY{k}{for} \PY{n}{year\PYZus{}clustered\PYZus{}sign\PYZus{}names\PYZus{}parts} \PY{o+ow}{in} \PY{n}{clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{[}\PY{n}{year}\PY{p}{]}
+        \PY{p}{]}
+    \PY{k}{return} \PY{n}{clustered\PYZus{}map\PYZus{}indexes}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{clustered\PYZus{}map\PYZus{}indexes} \PY{o}{=} \PY{n}{clustered\PYZus{}names\PYZus{}to\PYZus{}map\PYZus{}indexes}\PY{p}{(}
+        \PY{n}{years}\PY{p}{,}
+        \PY{n}{clustered\PYZus{}sign\PYZus{}names\PYZus{}parts}\PY{p}{,}
+        \PY{n}{corrected\PYZus{}region\PYZus{}map\PYZus{}names\PYZus{}main\PYZus{}part}
+    \PY{p}{)}
+\end{Verbatim}
+
+    Отдельная задача - отрисовать код региона на карте так что бы код попал
+<<внутрь>> границ региона. Стандартных средств для этого в
+библиотеках Python нет. Задача решена в некоторых проприетарных пакетах,
+но налаживание взаимдействия с ними (хотя бы в виде уже готовых карт)
+может занять весьма неопределённое время. Поэтому попытаемся решить
+некий простейший вариант данной задачи, с возможнотью
+<<ручной подстройки>> координат и размера надписи. В общем виде
+решение данной задачи (разместить объект ограниченный неким
+прямоугольником <<где-то внутри>> произвольного, и в общем случае,
+невыпуклого многоуголника <<ближе всего>> к некоторому наиболее
+удобному для человеческого глаза <<центру восприятия>>
+многоугольника, смасштабировав к тому же размещаемый объект) превосходит
+как минимум в несколько раз по трудо и времяёмкости данную работу. Как
+показали проведённые эксперименты, достаточно неплохие результаты во
+многих случаях даёт просто размещение надписи в центре ограничивающего
+регион прямоугольника (bbox в терминологии shapefiles). Размещение в
+центре масс многоугольника даёт худший результат, в особенности если
+регион имеет извилистую береговую линию (тогда центр масс сильно к ней
+смещён). О регионах состоящих из нескольких островов и говорить не
+приходится - поможет только установка надписи <<вручную>>, как
+скорее всего и сделано в проприетарном ПО. Следует оговорить что далее
+нарушено одно из основных правил написания хорошего программного кода:
+введено некоторое количество неименнованных <<магических>> чисел
+(размер шрифта), но код у нас одноразовый, дальнейшей поддержки и
+развития не предполагает, поэтому вряд ли нарушение этого правила
+принесёт нам большой вред.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{calculate\PYZus{}code\PYZus{}coords}\PY{p}{(}\PY{n}{region\PYZus{}shape\PYZus{}num}\PY{p}{,} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{,} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}\PY{p}{:}
+    \PY{n}{bbox} \PY{o}{=} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{[}\PY{n}{region\PYZus{}shape\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{bbox}
+    \PY{n}{len\PYZus{}x} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+    \PY{n}{len\PYZus{}y} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+    \PY{k}{if} \PY{n}{len\PYZus{}x} \PY{o}{\PYZgt{}} \PY{n}{len\PYZus{}y}\PY{p}{:}
+        \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{=} \PY{n}{len\PYZus{}y}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{=} \PY{n}{len\PYZus{}x}
+    \PY{k}{if} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZgt{}} \PY{l+m+mi}{12}\PY{p}{:}
+        \PY{n}{fsize} \PY{o}{=} \PY{l+m+mi}{18}
+    \PY{k}{elif} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZgt{}} \PY{l+m+mi}{8} \PY{o+ow}{and} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{12}\PY{p}{:}
+        \PY{n}{fsize} \PY{o}{=} \PY{l+m+mi}{16}
+    \PY{k}{elif} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZgt{}} \PY{l+m+mi}{4} \PY{o+ow}{and} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{8}\PY{p}{:}
+        \PY{n}{fsize} \PY{o}{=} \PY{l+m+mi}{12}
+    \PY{k}{elif} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1} \PY{o+ow}{and} \PY{n}{min\PYZus{}bbox\PYZus{}len} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{4}\PY{p}{:}
+        \PY{n}{fsize} \PY{o}{=} \PY{l+m+mi}{10}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{fsize} \PY{o}{=} \PY{l+m+mi}{10}
+    \PY{k}{if} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{!=} \PY{k+kc}{None}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}
+        \PY{k}{if} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{:}
+            \PY{k}{return} \PY{n}{region\PYZus{}code\PYZus{}description}
+        \PY{k}{else}\PY{p}{:}
+            \PY{k}{return} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{fsize}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{x\PYZus{}bbox\PYZus{}centre} \PY{o}{=} \PY{p}{(}\PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{+} \PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+        \PY{n}{y\PYZus{}bbox\PYZus{}centre} \PY{o}{=} \PY{p}{(}\PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{bbox}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+        \PY{k}{return} \PY{n}{x\PYZus{}bbox\PYZus{}centre}\PY{p}{,} \PY{n}{y\PYZus{}bbox\PYZus{}centre}\PY{p}{,} \PY{n}{fsize}
+\end{Verbatim}
+
+    Определяем таблицу кодов регионов для которых координаты (и возможно,
+размер) надписи будем устанавливать вручную.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{codes\PYZus{}coords\PYZus{}table} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ARK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mf}{45.0}\PY{p}{,} \PY{l+m+mf}{65.0}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CAO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{175}\PY{p}{,} \PY{l+m+mf}{68.98645782470703}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\PY{k}{def} \PY{n+nf}{set\PYZus{}codes\PYZus{}coords}\PY{p}{(}\PY{n}{region\PYZus{}codes\PYZus{}description}\PY{p}{)}\PY{p}{:}
+    \PY{n}{new\PYZus{}region\PYZus{}codes\PYZus{}description} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{region\PYZus{}code\PYZus{}description} \PY{o+ow}{in} \PY{n}{region\PYZus{}codes\PYZus{}description}\PY{p}{:}
+        \PY{n}{new\PYZus{}region\PYZus{}codes\PYZus{}description}\PY{o}{.}\PY{n}{append}\PY{p}{(}
+            \PY{p}{(}
+                \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{n}{codes\PYZus{}coords\PYZus{}table}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+            \PY{p}{)}
+        \PY{p}{)}
+    \PY{k}{return} \PY{n}{new\PYZus{}region\PYZus{}codes\PYZus{}description}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{region\PYZus{}codes\PYZus{}description} \PY{o}{=} \PY{n}{set\PYZus{}codes\PYZus{}coords}\PY{p}{(}\PY{n}{region\PYZus{}codes\PYZus{}description}\PY{p}{)}
+\end{Verbatim}
+
+    Определяем функцию (довольно громоздкую и сложную) отрисовывающую карту
+регионов.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{draw\PYZus{}clustered\PYZus{}regions}\PY{p}{(}
+        \PY{n}{year\PYZus{}clustered\PYZus{}map\PYZus{}indexes}\PY{p}{,}
+        \PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection}\PY{p}{,}
+        \PY{n}{region\PYZus{}codes}\PY{p}{,}
+        \PY{n}{cluster\PYZus{}colors}\PY{p}{,}
+        \PY{n}{adm\PYZus{}units\PYZus{}shapes}
+    \PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{}print(\PYZdq{}region\PYZus{}codes: \PYZdq{}, region\PYZus{}codes)}
+    \PY{n}{num\PYZus{}of\PYZus{}shapes} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{)}
+    \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{24}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+    \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{)}
+    \PY{n}{list\PYZus{}of\PYZus{}pathes\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{n}{non\PYZus{}clustered\PYZus{}index\PYZus{}set} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}of\PYZus{}shapes}\PY{p}{)}\PY{p}{)}
+    \PY{n}{non\PYZus{}clustred\PYZus{}pathes\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{k}{for} \PY{n}{cluster\PYZus{}map\PYZus{}indexes}\PY{p}{,} \PY{n}{cluster\PYZus{}color} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{year\PYZus{}clustered\PYZus{}map\PYZus{}indexes}\PY{p}{,} \PY{n}{cluster\PYZus{}colors}\PY{p}{)}\PY{p}{:}
+        \PY{n}{clustered\PYZus{}index\PYZus{}set} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{text\PYZus{}xy\PYZus{}list\PYZus{}mean} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{text\PYZus{}xy\PYZus{}list\PYZus{}bbox} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{text\PYZus{}xy\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{n}{codes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        \PY{k}{for} \PY{n}{shape\PYZus{}num} \PY{o+ow}{in} \PY{n}{non\PYZus{}clustered\PYZus{}index\PYZus{}set}\PY{p}{:}
+            \PY{n}{cluster\PYZus{}pathes\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{region\PYZus{}code\PYZus{}description} \PY{o}{=} \PY{n}{region\PYZus{}codes}\PY{p}{[}\PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{p}{]}
+            \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{points}\PY{p}{)}
+            \PY{n}{text\PYZus{}x}\PY{p}{,} \PY{n}{text\PYZus{}y}\PY{p}{,} \PY{n}{fsize} \PY{o}{=} \PY{n}{calculate\PYZus{}code\PYZus{}coords}\PY{p}{(}\PY{n}{shape\PYZus{}num}\PY{p}{,} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{,} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{}print(region\PYZus{}code\PYZus{}description[0], region\PYZus{}code\PYZus{}description[1], (text\PYZus{}x, text\PYZus{}y), fsize)}
+            \PY{n}{text\PYZus{}xy\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{text\PYZus{}x}\PY{p}{,} \PY{n}{text\PYZus{}y}\PY{p}{,} \PY{n}{fsize}\PY{p}{)}\PY{p}{)}
+            \PY{n}{codes}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}
+            \PY{n}{parts} \PY{o}{=} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{parts}
+            \PY{n}{par} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{parts}\PY{p}{)} \PY{o}{+} \PY{p}{[}\PY{n}{points}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+            \PY{k}{for} \PY{n}{point\PYZus{}i\PYZus{}j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{parts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{shape\PYZus{}num} \PY{o+ow}{in} \PY{n}{cluster\PYZus{}map\PYZus{}indexes}\PY{p}{:}
+                    \PY{n}{polygon} \PY{o}{=} \PY{n}{patches}\PY{o}{.}\PY{n}{Polygon}\PY{p}{(}\PY{n}{points}\PY{p}{[}\PY{n}{par}\PY{p}{[}\PY{n}{point\PYZus{}i\PYZus{}j}\PY{p}{]}\PY{p}{:}\PY{n}{par}\PY{p}{[}\PY{n}{point\PYZus{}i\PYZus{}j} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                    \PY{n}{cluster\PYZus{}pathes\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{polygon}\PY{p}{)}
+                    \PY{k}{if} \PY{n}{shape\PYZus{}num} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{clustered\PYZus{}index\PYZus{}set}\PY{p}{:}
+                        \PY{n}{clustered\PYZus{}index\PYZus{}set}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{shape\PYZus{}num}\PY{p}{)}
+
+            \PY{n}{list\PYZus{}of\PYZus{}pathes\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cluster\PYZus{}pathes\PYZus{}list}\PY{p}{)}
+            \PY{n}{cluster\PYZus{}collection} \PY{o}{=} \PY{n}{collections}\PY{o}{.}\PY{n}{PatchCollection}\PY{p}{(}\PY{n}{cluster\PYZus{}pathes\PYZus{}list}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{)}
+            \PY{n}{cluster\PYZus{}array} \PY{o}{=} \PY{n}{cluster\PYZus{}collection}\PY{o}{.}\PY{n}{get\PYZus{}array}\PY{p}{(}\PY{p}{)}
+            \PY{n}{cluster\PYZus{}collection}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{n}{cluster\PYZus{}color}\PY{p}{)}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}collection}\PY{p}{(}\PY{n}{cluster\PYZus{}collection}\PY{p}{)}
+            
+        \PY{k}{for} \PY{n}{text\PYZus{}xy}\PY{p}{,} \PY{n}{code} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{text\PYZus{}xy\PYZus{}list}\PY{p}{,} \PY{n}{codes}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{code}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(\PYZdq{}clustered\PYZus{}index\PYZus{}set: \PYZdq{}, clustered\PYZus{}index\PYZus{}set)}
+        \PY{c+c1}{\PYZsh{}print(\PYZdq{}non\PYZus{}clustered\PYZus{}index\PYZus{}set before delete: \PYZdq{}, non\PYZus{}clustered\PYZus{}index\PYZus{}set)}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{clustered\PYZus{}index\PYZus{}set}\PY{p}{:}
+            \PY{k}{if} \PY{n}{i} \PY{o+ow}{in} \PY{n}{non\PYZus{}clustered\PYZus{}index\PYZus{}set}\PY{p}{:}
+                \PY{n}{non\PYZus{}clustered\PYZus{}index\PYZus{}set}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(\PYZdq{}non\PYZus{}clustered\PYZus{}index\PYZus{}set after delete: \PYZdq{}, non\PYZus{}clustered\PYZus{}index\PYZus{}set)}
+                
+                
+    \PY{n}{pathes\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{n}{text\PYZus{}xy\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{n}{codes} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+    \PY{c+c1}{\PYZsh{}print(\PYZdq{}non\PYZus{}clustered\PYZus{}index\PYZus{}set:\PYZbs{}n\PYZdq{}, non\PYZus{}clustered\PYZus{}index\PYZus{}set)}
+    \PY{k}{for} \PY{n}{shape\PYZus{}num} \PY{o+ow}{in} \PY{n}{non\PYZus{}clustered\PYZus{}index\PYZus{}set}\PY{p}{:}
+        \PY{n}{region\PYZus{}code\PYZus{}description} \PY{o}{=} \PY{n}{region\PYZus{}codes}\PY{p}{[}\PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{p}{]}
+        \PY{n}{codes}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}
+        \PY{n}{points} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{points}\PY{p}{)}
+        \PY{n}{text\PYZus{}x}\PY{p}{,} \PY{n}{text\PYZus{}y}\PY{p}{,} \PY{n}{fsize} \PY{o}{=} \PY{n}{calculate\PYZus{}code\PYZus{}coords}\PY{p}{(}\PY{n}{shape\PYZus{}num}\PY{p}{,} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{,} \PY{n}{region\PYZus{}code\PYZus{}description}\PY{p}{)}
+        \PY{n}{text\PYZus{}xy\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{(}\PY{n}{text\PYZus{}x}\PY{p}{,} \PY{n}{text\PYZus{}y}\PY{p}{,} \PY{n}{fsize}\PY{p}{)}\PY{p}{)}        
+        \PY{n}{parts} \PY{o}{=} \PY{n}{adm\PYZus{}units\PYZus{}shapes}\PY{p}{[}\PY{n}{shape\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{parts}
+        \PY{n}{par} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{parts}\PY{p}{)} \PY{o}{+} \PY{p}{[}\PY{n}{points}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}
+        \PY{k}{for} \PY{n}{point\PYZus{}i\PYZus{}j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{parts}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{n}{polygon} \PY{o}{=} \PY{n}{patches}\PY{o}{.}\PY{n}{Polygon}\PY{p}{(}\PY{n}{points}\PY{p}{[}\PY{n}{par}\PY{p}{[}\PY{n}{point\PYZus{}i\PYZus{}j}\PY{p}{]}\PY{p}{:}\PY{n}{par}\PY{p}{[}\PY{n}{point\PYZus{}i\PYZus{}j} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n+nb}{str}\PY{p}{(}\PY{n}{shape\PYZus{}num}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pathes\PYZus{}list}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{polygon}\PY{p}{)}
+    \PY{n}{non\PYZus{}clustered\PYZus{}collection} \PY{o}{=} \PY{n}{collections}\PY{o}{.}\PY{n}{PatchCollection}\PY{p}{(}\PY{n}{pathes\PYZus{}list}\PY{p}{,} \PY{n}{edgecolor}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{2.0}\PY{p}{)}
+    \PY{n}{non\PYZus{}clustered\PYZus{}collection}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purple}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}collection}\PY{p}{(}\PY{n}{non\PYZus{}clustered\PYZus{}collection}\PY{p}{)}
+
+    \PY{k}{for} \PY{n}{text\PYZus{}xy}\PY{p}{,} \PY{n}{code} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{text\PYZus{}xy\PYZus{}list}\PY{p}{,} \PY{n}{codes}\PY{p}{)}\PY{p}{:}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{code}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{text\PYZus{}xy}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}    
+    \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{o}{+}\PY{l+m+mi}{190}\PY{p}{)}
+    \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylim}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{84}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{}plt.legend()}
+    \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    Вызываем функцию для каждого года, отрисовывая регионы принадлежащие
+данному кластеру в данном году.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{year} \PY{o+ow}{in} \PY{n}{years}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Год: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{year}\PY{p}{)}
+    \PY{n}{draw\PYZus{}clustered\PYZus{}regions}\PY{p}{(}
+        \PY{n}{clustered\PYZus{}map\PYZus{}indexes}\PY{p}{[}\PY{n}{year}\PY{p}{]}\PY{p}{,}
+        \PY{n}{map\PYZus{}codes\PYZus{}indexes\PYZus{}bijection}\PY{p}{,}
+        \PY{n}{region\PYZus{}codes\PYZus{}description}\PY{p}{,}
+        \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{violet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cyan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gray}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+        \PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}shapes}
+    \PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2005
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2006
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2007
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2008
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2009
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2010
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2011
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2012
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2013
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('ARK', 'архангельская', (45.0, 65.0, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2014
+('ARK', 'архангельская', (45.0, 65.0, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+('CAO', 'чукотский', (175, 68.98645782470703, None))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_119_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Глядя на карты мы можем сделать ещё несколько выводов:
+
+\begin{enumerate}
+\item Большая часть <<Отстающих>> или <<Аномальных>> регионов отстаят далеко от административного центра - Московского региона. Отстающие - в основном некоторые регионы крайнего севера, либо же - республики Кавказа. Аномальные - Сибирь, Дальний восток.
+\item Большая часть <<Лидеров>> - центральная Россия, Урал, юг Поволжья: Москва, Свердловская область, Татарстан то есть наиболее богатые/населённые  административные единицы Российской Федерации.
+\end{enumerate}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
