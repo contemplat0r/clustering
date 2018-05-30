@@ -1,0 +1,1690 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process -- todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+     % load all other packages
+    \usepackage[T1,T2A]{fontenc}
+    \usepackage[english, russian]{babel}
+    \usepackage{mathtools}
+
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    \addto\captionsrussian{\def\refname{Список источников}} 
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Кластерный анализ инновационной активности регионов РФ}
+    \date{\vspace{-5ex}}
+   
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    \newpage
+    
+    
+    
+    Загружаем необходимые для работы библиотеки (Pandas, Numpy ScikitLearn,
+Matplotlib -- стандартный набор библиотек применяемых в Data Science)
+языка Python а так же включаем диррективу \%matplotlib inline
+необходимую для отрбражения изображений построенных посредством
+библиотеки Matplotlib.
+
+
+    Замечание: в дальнейшем термин <<класс>> используется в двух
+различных значениях
+
+\begin{enumerate}
+\item Концепция ООП программирования, широко используемая в большинстве современных языков программирования, служащая для объединения программного кода в некие семантически/логически/функционально связанные сущьности, и предоставляющая средства для оперирования с этими сущьностями.
+\item Как класс в задачах классификации машинного обучения. В данном случае смысл термина класс близок к бытовому его восприятию (например классом в таком понимании является сорт цветка -- роза, тюльпан, и т.д. тип траспортного средства -- автомобиль, мотоцикл, самолёт и т.д.)
+\end{enumerate}
+
+Читаем источник данных (файл в формате .xlsx) с помощью метода
+read\_excel библиотеки Pandas предазначенной для работы с данными,
+прежде всего для операций с DataFrames -- основным способом представления
+данных используемым различным программным обеспечением в области Machine
+Learning / Data Science. Каждый лист Excel-я читаем отдельно получая для
+каждого листа отдельный датафрейм.
+
+
+    Для дальнейших операций объединяем полученные датафреймы в список,
+который в свою очередь состоит из подсписков содержащих собственно сам
+датафрейм и ассоциированное с ним название максимально соответствующее
+русскому названию экселевского листа. В дальнейшем, эти названия станут
+именами столбцов датафреймов содержащих информацию разбитую по годам.
+
+
+    Отдельно сохраняем соответствующие русскоязычные названия в виде списка,
+в том же порядке в котором идут датафреймы в списке датафреймов.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{features\PYZus{}names\PYZus{}ru} \PY{o}{=} \PY{p}{[}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОРГАНИЗАЦИИ, ВЫПОЛНЯЮЩИЕ НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{численность персонала без ученых степеней, занятых НИОКР}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность исследователей, имеющих ученую степень,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{по субъектам Российской Федерации показатель}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{кандидата наук\PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность исследователей, имеющих ученую степень,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{по субъектам Российской Федерации показатель}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{доктора наук \PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность аспирантов по субъектам Российской Федерации \PYZhy{} человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Численность докторантов по субъектам Российской Федерации 0человек}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ИЗОБРЕТЕНИЯ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{РАЗРАБОТАННЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ЗАТРАТЫ НА ТЕХНОЛОГИЧЕСКИЕ ИННОВАЦИИ ОРГАНИЗАЦИЙ (руб)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ОБЪЕМ ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ (МИЛЛИОНОВ РУБЛЕЙ)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{численность населения по субъектам российской федерации}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(оценка на конец года; тысяч человек)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Валовой региональный продукт по субъектам Российской Федерации}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(в текущих  ценах;миллионов рублей)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ВНУТРЕННИЕ ЗАТРАТЫ НА НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{миллионов рублей}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{]}
+\end{Verbatim}
+
+    Избаляемся от строчки <<ВСЕГО>> в каждом датафрейме из списка.
+
+    Создаём список <<годовых>> датафреймов, каждый из которых содержит
+полный список показателей (features в терминах Data Science) для каждого
+региона (Столбцы -- показатели, строки -- регионы). Используем стандартную
+операцию Pandas-овских датафреймов merge (для объединения
+<<показательных>> датафреймов в <<годовые>>). В качестве
+столбца используемого для объединения используем столбец
+\verb'"Region"'. Т.е. объединяем все показатели по данному региону за
+год.
+
+
+    Вспомогательные функции для корректировки некорректно представленных
+значений (например содержащих в качестве десятичного разделителя
+запятую) в датафреймах.
+
+    Импортируем стандартный класс библиотеки ScikitLearn для приведения
+значений к одному и тому же масштабу. Создаём экземпляр этого класса.
+
+
+    Корректируем вручную одно из неправильных значений, а ко всему
+остальному применяем функции коррктировки.
+
+
+    Объединяем список <<годовых>> датафреймов в один датафрейм с
+иеррархическим индексом <<Год/Регион>>. В дальнейшем будем
+производить кластеризацию используя именно этот датафрейм. Кластер в
+общем случае объединяет <<в чём то схожие>> регионы, причём кластер
+при этом имеет временную (ударение на <<у>>) проятжённость. Т.е.
+каждый кластер простирается от 2005-го года до 2014-го. И один и тот же
+регион в разные годы может принадлежать к различным кластерам (например
+в 2005 -- к <<первому>>, в 2006 -- ко <<второму>>, а в остальные
+годы -- к <<четвёртому>>) а может и всё время оставаться в одном и
+том же кластере.
+
+    Корректируем вручную ещё два неверных значения.
+
+    Приводим к единому масштабу, используя ранее созданный экземпляр класса
+MinMaxScaler.
+
+
+    Алгоритмы машинного обучения в библиотеке ScikitLearn оформлены в виде
+классов, получающих на входе (при создании экземпляра класса) параметры
+определяюще работу соответствующего алгоритма. Далее при вызове метода
+fit созданный экземпляр класса получает значения используемые для
+обучения в виде массивов библиотеки Numpy. Извлекаем из датафрейма
+соответствующий массив Numpy просто обращаясь к полю датафрейма values.
+\\ В качестве алгоритма класстеризации используем MeanShift
+\cite{litlink2} \cite{litlink5}. \\ Для неформального
+понимания того как он работает рассмотрим самый простой случай. Пусть у
+нас есть некий набор точек в одномерном пространстве, т.е. попросту
+говоря на прямой. Набор точек произвольный, единственное ограничение
+налагаемое на него -- конечное количество точек. Понятно, что в общем
+случае где то точки могут быть расположены чаще (более плотно), где то -
+реже (менее плотно). Таких уплотнений в общем случае может быть
+несколько, и интуитивно понятно, что для каждого такого уплотнения можно
+найти центр, и вычислить его координаты (а координат у нас в
+рассматриваемом случае одна). Понятно, что в частном случае равномерно
+расположенных точек в качестве центра можно взять просто среднее
+арифметическое координат точек (расстояний от 0) -- центр масс. Для
+наглядности нарисуем набор точек удовлятворящий сформулированным
+требованиям.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Далее мы принимаем следующее утверждение: Центры
+<<уплотнений>> и есть центры кластеров, а точки входящие в данное
+<<уплотнение>> относяться к одному кластеру. Интуитивно понятно,
+что если точки где то расположены более тесно, то их можно считать в чём
+то близкими. Тут уже можно сделать первое формальное уточнение. Что
+означает <<относящиеся к данному уплотнению>>? Очевидно это те
+точки расстояние от которых до центра данного уплотнения меньше чем до
+центра любого другого уплотнения. \\ Теперь нам надо как то
+превратить неформальный термин <<уплотнение>> который не взвесишь и
+не измеришь в что-то что мы можем посчитать, сравнить и т.д. Приведём
+цепочку математически нестрогих, но достаточно наглядныхх построений
+которые подведут к основной идее того как это сделать.
+\\ Во первых раз мы хотим как то измерить эту самую
+<<степень уплотнённости>>, мы должны поставить в соответствие этой
+самой <<степени уплотнённости>> некое число. И если где-то точки
+расположены более плотно то там в этом самом <<где-то>> это число
+должно быть больше чем там где точки расположены менее плотно. Т.е.
+переходя всё таки к математической формулировке без которой нам таки или
+иначе не обойтись: мы хотим ввести некоторую функцию от <<где-то>>
+которая ставит в соответствие этому <<где-то>> некое число
+показывающее <<степень уплотнённости>>. Уточняем наше определение
+дальше. Что такое <<где-то>>? Это координаты точки, в случае одного
+измерения -- просто одно число $x$ -- расстояние от начала координат, в
+случае двух измерений -- $(x, y)$ (или $(x_1, x_2)$ если угодно) в случае
+3-ёх измерений $(x, y, z)$ или $(x_i, x_2, x_3)$ и так далее. А что
+такое <<степень уплотнённости>>? Собственно само слово
+<<плотность>> уже содержит в себе ответ. В зике
+<<плотность>> -- вполне определённый термин -- отношение массы
+заключённой в каком-то объёме к этому самомоу объёму. Ну или в более
+обобщённом виде (и более строго) -- количество чего-то заключенного в
+каком-то замкнутой области $n$-мерного пространства к $n$-мерному обёму
+этой области. В случае опять же одного измерения $n$-мерный объём -- это
+просто длинна (измеряемая, например в метрах), в случае двух измерений -
+площадь (т.е. метры квадратные), в случае трёх -- привычный нам обычный
+трёхмерный объём (измеряемый, например в литрах или метрах кубических),
+в случае 4-ёх измерений -- некий гиперобём 4-й степени (т.е. имеющий
+размерность ${\mbox{м}}^4$) и так далее. \\ Пойдём дальше
+по пути наибольшей наглядности и интуитивной понятности, и ещё больше
+упростим ситуацию. Возмём начало координат т.е. точку с координатой $0$
+в случае одного измерения или $(0, 0)$ в случае двух измерений. Более
+<<высокомерные>> случаи нам, для общего понимания, рассматривать
+нет необходимости. Измерим плотность точек которые нам необходимо
+прокластеризовать <<вокруг>> начала координат. В случае одного
+измерения, возмём отрезок длинны $1$ с центром в начале координат, в
+случае двух измерений -- возьмём квадрат со стороной длинны $1$, стороны
+которого параллельны осям координат, и центром в начале координат (слово
+<<вокруг>> пока оставим, хотя потом мы к нему вернёмся). Определим
+очень простую функцию. Пусть она равна 1 если произвольная точка
+попадает <<внутрь>> нашего отрезка или квадрата, иначе пусть она
+равна нулю. В общем случае (для $n$ измерений) наша функция запишется
+так.
+$$
+\phi(u) = \left\lbrace
+            \begin{aligned}
+            1 && \; |u_j| \le \frac{1}{2} && \; j = 1\ldots n \\
+            0 && \; \mbox{иначе} &&
+           \end{aligned}
+          \right.
+$$
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Теперь возмём для наглядности, произвольную двумерную
+точку $x$ c координатами $(x_1, x_2)$. Пусть она является центром
+квадрата с длинной сторон $h$. Тогда для любой точки $x_i$,
+принадлежащей множеству точек $x_1, x_2, \ldots , x_N$ которые мы хотим
+прокластеризоварь, имеющей координаты $(x_{1i}, x_{2i})$ выполняется
+соотношение:
+
+$$
+\phi\left(\frac{x - x_i}{h}\right) = \left\lbrace
+            \begin{aligned}
+            1 && \; |x_j - x_{ij}| \le \frac{h}{2} && \; j = 1\ldots n \\
+            0 && \; \mbox{иначе} &&
+           \end{aligned}
+          \right.
+$$
+где $n$ количество координат (измерений), это число не надо путать с
+$N$ -- количеством точек которые надо прокластеризовать.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+   
+    Или, если если стараться формулировать максимально просто:
+
+$$ 
+\phi\left(\frac{x - x_i}{h}\right) = \left\lbrace
+            \begin{aligned}
+            1 && \mbox{если} \: x_i \: \mbox{находится} && \mbox{в середине гиперкуба со стороной}\: h \: \mbox{и центром в} \: x \\
+            0 && \mbox{в ином случае} &&
+           \end{aligned}
+          \right.
+$$
+Теперь мы може подсчитать общее количество точек из множества точек
+$x_i, x_2 \ldots x_N$, которые находятся внутри гиперкуба со стороной
+$h$ и центром в точке $x$.
+
+$$
+k = \sum\limits_{i = 1}^{N}\phi\left(\frac{x - x_i}{h}\right)
+$$
+
+ Далее мы можем разделить полученную величину на $h^n$ -- объём
+нашего $n$-мерного куба (гиперкуба), получив плотность кластеризуемых
+точек в гиперкубе с центром в произвольной точке $x$. В случае
+одномерного гиперкуба, то есть отрезка длинны $h$, получим количество
+точек приходящихся на единицу длинны. \\ Здесь мы
+остановимся и посмотрим на нашу функцию $\phi(u)$ несколько
+повнимательнее. Она очень проста, но обладает несколькими не очень
+приятными свойствами, например она обладает некоей симметрией, но не
+полностью симметрича относительно оси $Y$ (для двумерного случая). Она
+так же несколько <<угловата>> -- не является везде гладкой, если
+говорить строго, и значит в некоторых точках у этой функции нет
+производной. Можно ли применить для определения плотности кластеризуемых
+точек в окрестности произвольной точки каки то более подходящие классы
+функций? Оказывается можно. Собственно, мы подошли к концу нашей
+<<наводящей>> цепочки рассуждений. Сделаем ещё несколько оговорок.
+\\  Авторы идеи, очень упрощённый вариант которой мы
+привели выше, Emanuel Parzen и Murray Rosenblatt, в своих рассуждениях
+(более математически строгих чем наши), оперируют не с количеством
+точек, а с количеством точек попадающих в <<зону действия>>
+функции, делённом на количество всех точек $N$. Фактически, с
+вероятностью. Ну и деля на гиперобъём, получают плотность вероятности
+попадания произвольной точки в <<зону действия>> функции $\phi$
+(Эта <<зона действия>> называется <<окно Парзена>> (Parzen
+window) \cite{litlink0} и определяется параметром $h$). Т.е. функция с
+помощью которой мы вычисляем плотность, -- это плотность вероятности,
+и должна обладать свойствами таковой.
+
+    \\ Формулируем более строго. Вводим непрерывную функцию
+плотности (вероятности). Т.е. с этой функцией мы можем оперировать
+привычными нам средствами матанализа, например найти её максимумы,
+которые и являються центрами уплотнений т.е. кластеров. Ну а наш набор
+точек $x_i, i = 1 \ldots N$ -- это некое дискретное подмножество области
+определения функции плотности. И нам надо на основе этого набора точек
+построить функцию плотности. Находим плотность вероятности как линейную
+сумму функцций, удовлетворяющих определённым свойствам. В англоязычной
+литературе по статистике/машинному обучению такие функции называються
+kernel -- <<ядро>> Или, если угодно <<ядерной функцией>>.
+kernel-функция $K(x)$ обладает следующими свойствами (считаем что точка
+в окрестности которой нам надо вычислить плотность вероятности -- это
+начало координат):
+
+\begin{enumerate}
+\item $K(x)$ <<быстро>> (например экспоненциально) стремится к нулю по мере удаления от начала координат
+\item $K(x)$ имеет максимум в начале координат
+\item $K(x)$ симметрична
+\item Ну и для полной определённости можно сразу же и добавить что $\int\limits_{-\infty}^{+\infty}K(x)dx = 1$
+\end{enumerate}
+
+Для наглядности можно представить график функции обладающей
+вышеперечисленным свойствами (один из возможных вариантов):
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Функция график которой приведён выше -- это функция Гаусса, т.е.
+плотность вероятности нормально распределённой случайной величины.
+$$
+k(x) = ce^{-\frac{x^2}{2\sigma^2}}
+$$
+
+Теперь мы можем для каждой точки $x_i$ нашего набора точек определить
+свой kernel $K(x -- x_i)$ с центром в данной точке $x_i$. Выглядят точки
+с их kernel-ами примерно так:
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Далее мы суммируем все эти kernel-ы, деля сумму на количество $N$ точек
+в нашем наборе, находя таким образом функцию плотности распределения
+наших точек, осуществив переход к непрерывной функции распределения
+плотности:
+
+$$
+f(x) = \frac{1}{N}\sum\limits_{i = 1}^{N}K(x - x_i) 
+$$
+
+В принципе, мы можем думать о kernel как о некой
+<<мере схожести>>, или <<мере подобия>> двух произвольных
+точек $x_i$ и $x_j$ нашего набора точек. Т.е. чем больше значение
+$K(x_i - x_j)$ тем более <<похожи>> точки $x_i$ и $x_j$.
+\\ Сделаем ещё один шаг, уточняя понятие kernel. На самом
+деле kernel -- это, для большинства применяемых на практике kernel-ов,
+функция от расстояния $\|x_i - x_j\|$ между точками:
+
+$$
+K(x) = ck\left(\left\|\frac{x - x_i}{h}\right\|\right)
+$$
+
+$c$ -- это
+просто нормировочная константа, для того что бы интеграл от kernel по
+всей области определения был равен 1. В англоязычной литературе по
+статистике/машинному обучению $h$ bandwidth или window bandwidth -
+"ширина окна". Имеется ввиду ширина Парзеновского окна.
+\\ Для нас важно, то что величина $h$ характеризует
+<<радиус влияния>> точки $x_i$. От выбора величины этого параметра
+зависит ключевой момент применения MeanShift алгоритма о котором будет
+сказанно дальше. \\ Итак, введя расстояние между точками
+нашего набора точек мы фактически дали описание не только одномерного
+случая, но и многомерного. Хотя, если под расстоянием, подразумевается
+обычное Евклидово расстояние, то мы тогда ограничиваем себя так
+называемыми radially symmetric kernels, то есть
+<<кругосимметричными ядрами>> (в начале наших рассуждений уже была
+формулировка <<вокруг начала координат>>). Впрочем, для обобщения
+на многомерный случай радиальность kernel-а значения не имеет. Но для
+упрощения рассуждений и вычислений будем оперировать именно с radially
+symmetric kernel. \\ Итак, в общем случае в пространстве с
+Евклидовой метрикой такой kernel имеет вид:
+
+$$
+K(x) = ck\left(\left\|\frac{x - x_i}{h}\right\|^2\right)
+$$
+
+Соответственно, функция плотности имеет вид:
+
+$$
+f(x) = \frac{1}{N}\sum\limits_{i = 1}^{N}ck\left(\left\|\frac{x - x_i}{h}\right\|^2\right)
+$$
+
+В англоязычной литературе по статистике/машинному обучению данный
+метод апроксимации плотности вероятности на конечном множестве точек
+называется Kernel Smoothing (Ядерное сглаживание).
+\\ Теперь мы можем найти локальные максимумы функции
+плотности воспользовавшись gradient asscent методом, т.е. методом
+градиентного восхождения, который на самом деле ничем не отличается от
+метода градиентного спуска за исключением знака с которым берётся
+градиент. \\ Итак в общем виде алгоритм нахождения всех
+максимумов функции плотности выглядит так:
+
+\begin{enumerate}
+\item Для всех $i=1 \ldots N$ повторять:
+$$
+x \gets x_i + \nabla f(x) = x_i + \frac{1}{N}\nabla\sum\limits_{i = 1}^{N}ck\left(\left\|\frac{x - x_i}{h}\right\|^2\right)
+$$
+\item До тех пор пока $x$ не перестанет изменяться.
+\end{enumerate}
+
+$\nabla$ -- набла-оператор, векторная сумма первых частных
+производных, ну или в случае одного измерения. просто первая
+производная. \\ Но тут есть одна тонкость, которая
+значительно упрощает алгоритм. Найдём градиент $\nabla f(x)$, вводя
+обозначение $g(t) = -k'(t)$:
+
+\begin{gather*}
+\nabla f(x) = \frac{1}{N}\nabla\sum\limits_{i = 1}^{N}ck\left(\left\|\frac{x - x_i}{h}\right\|^2\right) = \frac{2c}{Nh^2}\sum\limits_{i = 1}^{N}\left(x - x_i \right)g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right) \\
+\Downarrow \\
+\nabla f(x) = \frac{2c}{Nh^2}\sum\limits_{i = 1}^{N}g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)\left(\frac{\sum\limits_{i = 1}^{N}x_i g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)}{\sum\limits_{i = 1}^{N}g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)} - x \right)
+\end{gather*}
+
+\\ Выражение
+
+$$
+\boxed{\frac{\sum\limits_{i = 1}^{N}x_i g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)}{\sum\limits_{i = 1}^{N}g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)} - x}
+$$
+
+то есть разность между $x$ и средневзвешенным по $g(\bullet)$ от
+точек которые лежат <<близко>> от $x$ (то есть тех которые попадают
+в window точки $x$) и называется mean shift вектор. Обозначается как
+$M(x)$. Очевидно, что он имеет то же направление что и градиент.
+Воспользовавшись $M(x)$ окончательно запишем выражение для каждого
+последующего $x$ в нашем алгоритме как:
+$$
+x \gets x + M(x) = x + \left(\frac{\sum\limits_{i = 1}^{N}x_i g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)}{\sum\limits_{i = 1}^{N}g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)} - x \right) = \frac{\sum\limits_{i = 1}^{N}x_i g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)}{\sum\limits_{i = 1}^{N}g\left(\frac{\left\|x - x_i\right\|^2}{h^2}\right)}
+$$
+\\ Чаще всего в качестве $k(x)$ используется уже
+упоминавшаяся функция Гаусса (т.е. функция плотности нормального
+распределения вероятностей). В случае функции Гаусса $h$ -- это
+среднеквадратическое отклонение (обычно обозначается как $\sigma$).
+\\ И о подборе величины параметра $h$ (bandwidth). Если мы
+его выберем слишком малым, то у нас получится множество кластеров, общая
+картина получится слишком <<зашумленной>>. Если же задать его
+слишком большим, то картина получится слишком сглаженной, с малым
+количеством кластеров, из за чего мы рискуем не увидеть важные
+закономерности. \\ Уточнение по поводу
+<<близко-далеко>> и <<зоны влияния>>. Конечно же для Гауссова
+ядра зона влияния -- это вся числовая ось. Но на практике точки лежащие
+например, за пределами широкоизвестных <<трёх сигма>> можно не
+учитывать. Для некоторых же типов kernel-ов <<зона действия>> имеет
+чёткую границу (например для функции $\phi$ которую мы использовали
+выше). Ну или для Epanechnikov kernel (ядро Епанечникова):
+$$
+K\left( u \right) = \left\lbrace
+            \begin{aligned}
+            c\left( 1 - u^2 \right) && \; |u| \le 1 && \\
+            0 && \; \mbox{иначе} &&
+           \end{aligned}
+          \right.
+$$
+\\ Важнейшее преимущество MeanShift алгоритма это то что
+он не требует заранее задавать количество кластеров (в отличие например
+от наиболее популярного алгоритма <<обучения без учителя>>
+K-Means), т.е. не заставляет заранее нас делать какие либо предположения
+(а скорее, догадки) о количестве или расположении кластеров. В
+простейшем, одномерном случае мы можем проиллюстрировать работу
+алгоритма, дополняя предыдущий рисунок с набором точек и их kernela-ми:
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_59_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Вкратце Mean Shift алгоритм можно описать следующим
+образом:
+
+\begin{enumerate}
+\item Строим на множестве точек которые надо прокластеризовать непрерывную функцию плотности воспользовавшись ядерным сглаживание (kernel smoothing).
+\item Используя модифицированный метод градиентного восхождения, в котором собственно градиент от функции плотности полученной на предыдушем шаге, заменён на вектор сдвига от данной точки к средневзвешенному значению координат точек попадающих в Парзеновское окно данной точки (Mean Shift vector), приходим из каждой точки из набора точек которые нам необходимо прокластеризовать, в ближайший к точке локальный максимум.
+\item Точки для которых локальные максимумы совпадают, объявляем принадлежащими к одному кластеру.
+\end{enumerate}
+
+    Создаём экземпляр класса MeanShift, задавая bandwidth. ScikitLearn
+предоставляет возможность во многих случаях вычислить его при помощи
+функции estimate\_bandwidht избавив нас от необходимости его угадывать.
+Далее вызываем стандартный для всех классов ScikitLearn реализующих
+методы машинного обучения метод fit передавая ему массив обучающих
+значений. После обращаясь уже к <<обученному>> (произведшему
+класстеризацию) экземпляру класса выводим количество получившихся
+кластеров.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Количество кластеров: 4
+
+    \end{Verbatim}
+
+    Выводим (используя библиотеку Seaborn) кроскорреляционную матрицу. Кроме
+значения коэффициента корреляции степень корреляции выделяется цветом.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Для упрощения восприятия выводим соответсвие между названиями
+(англоязычными) столбцов в датафрейме и соответсвующими русскоязычными
+названиями показетелей. Так же выводим и соответтвующие номера столбцов.
+Нумерация начинается с нуля, как это принято в большинстве языков
+программирования.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{column\PYZus{}name\PYZus{}en}\PY{p}{,} \PY{n}{feature\PYZus{}name\PYZus{}ru} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}
+    \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{features\PYZus{}names\PYZus{}ru}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+    \PY{n}{scaled\PYZus{}with\PYZus{}dropped\PYZus{}regions\PYZus{}hier\PYZus{}concantenated\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{,}
+    \PY{n}{features\PYZus{}names\PYZus{}ru}
+\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{column\PYZus{}name\PYZus{}en}\PY{p}{,} \PY{n}{feature\PYZus{}name\PYZus{}ru}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0 OrganizationNum
+	ОРГАНИЗАЦИИ, ВЫПОЛНЯЮЩИЕ НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ
+
+1 StaffNum
+	численность персонала без ученых степеней, занятых НИОКР
+
+2 PhDNum
+	Численность исследователей, имеющих ученую степень,
+по субъектам Российской Федерации показатель
+кандидата наук- человек
+
+3 Ph.DNum
+	Численность исследователей, имеющих ученую степень,
+по субъектам Российской Федерации показатель
+доктора наук - человек
+
+4 PostgraduateNum
+	Численность аспирантов по субъектам Российской Федерации - человек
+
+5 DoctoralNum
+	Численность докторантов по субъектам Российской Федерации 0человек
+
+6 PatentNum
+	КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ИЗОБРЕТЕНИЯ
+
+7 UsefulPatentsNum
+	КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ
+
+8 CreatedTechnologyNum
+	РАЗРАБОТАННЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+9 UsefulTechnologyNum
+	ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+10 ProportionOfOrganizationsToUseInternet
+	УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ)
+
+11 ProportionOfInnovativeOrgainzations
+	ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%)
+
+12 TechnologicalInnovationsCost
+	ЗАТРАТЫ НА ТЕХНОЛОГИЧЕСКИЕ ИННОВАЦИИ ОРГАНИЗАЦИЙ (руб)
+
+13 AmountOfInnovativeProducts
+	ОБЪЕМ ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ (МИЛЛИОНОВ РУБЛЕЙ)
+
+14 ProportionOfInnovativeProducts
+	УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+15 Population
+	численность населения по субъектам российской федерации
+(оценка на конец года; тысяч человек)
+
+16 GrossProduct
+	Валовой региональный продукт по субъектам Российской Федерации
+(в текущих  ценах;миллионов рублей)
+
+17 InternalCosts
+	ВНУТРЕННИЕ ЗАТРАТЫ НА НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ
+миллионов рублей
+
+
+    \end{Verbatim}
+
+    Для понимания полученной в резултате кластеризации информации нам
+необходимо эту информацию отобразить графически. А для этого нам
+необходимо выделить из набора всех показателей наиболее <<важные>>
+или значимые. Мы можем для этого использовать полученную шагом ранее
+кроскореляционную матрицу выбрав наименее коррелирующие пары
+показателей. Но этот подход выявляет только линейные зависимости, и к
+тому же нам придётся самим как-то писать дополнительный программный код
+для автоматизации этого выбора (что довольно громоздко) либо выбирать
+пары вручную что трудно и времязатратно. Попробуем применить другой
+подход. Воспользуемся тем что некоторые методы
+<<обучения с учителем>> (supervised learning) могут ранжировать
+признаки (features, столбцы) по степени важности. В частности таким
+свойством обладают методы основанные на объединении (ensemble) деревьев
+решений, например Random Forest (<<Лес случайных деревьев>>
+Алгоритм предложен Лео Брейманом и Адель Катлер: \cite{litlink4},
+\cite{litlink1} \cite{litlink5} \cite{litlink7}. Имеются ввиду decision
+trees -- <<решаюшие деревья>> или <<деревья решений>>
+\cite{litlink1}, \cite{litlink5} \cite{litlink6}, \cite{litlink7}). В
+каждом узле такого дерева присходит вычисление энтропии по Шеннону либо
+значения <<критерия загрязнённости>> Джинни (Gini impurity)
+\cite{litlink3} \cite{litlink5}, \cite{litlink7}, что автоматически даёт
+нам так же выявление нелинейных зависимостей. А разметка по классам
+необходимая для применения методов supervised learning у нас уже есть -
+принадлежность к тому или иному кластеру мы можем трактовать как
+принадлежность к соответсвующему классу. Создаём копию датафрейма
+
+    Создаём отдельное поле (столбец) которое и будет содержать метку класса
+(номер кластера).
+
+    Определяем вспомогательную функцию которая понадобиться для определения
+лучшего сочетания параметров выбранного метода supervised learning
+(Random Forest-а)
+
+    Создаём экземпляр стандартного ScikitLearn класса RandomForestClassifier
+
+    Произвёдем определение наилучшего сочетания значений параметров
+RandomForestClassifier-а посредством простого пойска по сетке значений
+параметров. Определяем допустимые диапазоны значений различных
+параметров Random Forest-а, для дальнейшего применения пойска наилучшего
+сочетания значений параметров по сетке значений. Создаём экземпляр
+класса GridSearchCV реализующего алгоритм пойска по сетке.
+
+    Производим пойск по сетке значений параметров.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ранг модели: 1
+Точность: 0.955 (среднеквадратичное отклонение: 0.011)
+Значения параметров:
+
+	bootstrap: True
+	criterion: gini
+	max\_depth: 7
+	max\_features: 3
+	min\_samples\_leaf: 1
+	min\_samples\_split: 3
+
+Ранг модели: 2
+Точность: 0.952 (среднеквадратичное отклонение: 0.018)
+Значения параметров:
+
+	bootstrap: True
+	criterion: gini
+	max\_depth: 7
+	max\_features: 3
+	min\_samples\_leaf: 3
+	min\_samples\_split: 10
+
+Ранг модели: 2
+Точность: 0.952 (среднеквадратичное отклонение: 0.043)
+Значения параметров:
+
+	bootstrap: False
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 2
+
+Ранг модели: 2
+Точность: 0.952 (среднеквадратичное отклонение: 0.046)
+Значения параметров:
+
+	bootstrap: False
+	criterion: entropy
+	max\_depth: 7
+	max\_features: 10
+	min\_samples\_leaf: 1
+	min\_samples\_split: 3
+
+
+    \end{Verbatim}
+
+    Создаём экземпляр RandomForestClassifier-а подставляя найденный
+наилучший набор значений параметров.
+
+    Запускаем процесс обучения классификатора.
+
+    Определяем важность показателей (features) инновационности (номера
+соответсвующих столбцов). И выводим диаграмму в графическом виде
+представляющую важность показателей (в виде высоты столбцов).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Ранжированные показатели:
+1. Показатель 10 (0.188041)
+	УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ)
+2. Показатель 11 (0.167093)
+	ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%)
+3. Показатель 9 (0.082238)
+	ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+4. Показатель 1 (0.067305)
+	численность персонала без ученых степеней, занятых НИОКР
+5. Показатель 14 (0.056109)
+	УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+6. Показатель 13 (0.055939)
+	ОБЪЕМ ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ (МИЛЛИОНОВ РУБЛЕЙ)
+7. Показатель 8 (0.052259)
+	РАЗРАБОТАННЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+8. Показатель 7 (0.051805)
+	КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ПОЛЕЗНЫЕ МОДЕЛИ
+9. Показатель 0 (0.043066)
+	ОРГАНИЗАЦИИ, ВЫПОЛНЯЮЩИЕ НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ
+10. Показатель 16 (0.042287)
+	Валовой региональный продукт по субъектам Российской Федерации
+(в текущих  ценах;миллионов рублей)
+11. Показатель 4 (0.032444)
+	Численность аспирантов по субъектам Российской Федерации - человек
+12. Показатель 15 (0.031357)
+	численность населения по субъектам российской федерации
+(оценка на конец года; тысяч человек)
+13. Показатель 6 (0.028565)
+	КОЛИЧЕСТВО ПАТЕНТОВ, ВЫДАННЫХ НА ИЗОБРЕТЕНИЯ
+14. Показатель 12 (0.028055)
+	ЗАТРАТЫ НА ТЕХНОЛОГИЧЕСКИЕ ИННОВАЦИИ ОРГАНИЗАЦИЙ (руб)
+15. Показатель 17 (0.024900)
+	ВНУТРЕННИЕ ЗАТРАТЫ НА НАУЧНЫЕ ИССЛЕДОВАНИЯ И РАЗРАБОТКИ
+миллионов рублей
+16. Показатель 3 (0.020874)
+	Численность исследователей, имеющих ученую степень,
+по субъектам Российской Федерации показатель
+доктора наук - человек
+17. Показатель 2 (0.020040)
+	Численность исследователей, имеющих ученую степень,
+по субъектам Российской Федерации показатель
+кандидата наук- человек
+18. Показатель 5 (0.007623)
+	Численность докторантов по субъектам Российской Федерации 0человек
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_85_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Как видим самым важным (весомым) показателем оказался
+показатель с номером десять (считая от нуля) -
+<<УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ>>
+Вообще, было проведено множество запусков RandomForest для выявления
+закономерностей в упорядочивании показателей по значимости. В каждом
+узле дерева решений (каждого из деревьев решений которые строит Random
+Forest) сплит (англ. split), т.е. разбиение по значениям очередного
+показателя, происходит среди показетелей случайно отобранных из всего
+множества показетелей, почему алгоритм и называется Random Forest. По
+этой причине от запуска к запуску, в общем случае, упорядочение
+меняется. Мы можем, конечно, изменить это поведение алгоритма
+посредством задания параметра random\_state но нас интересуют именно
+статистические закономерности. \\ Показатели 10 и 11 входят
+в пятёрку самых значимых почти при каждом перезапуске (по крайней мере
+один из них, чаще -- оба) причём обычно 10-й оказывается на 1-ом месте.
+Очень часто входят в пятёрку показатели 16, 13, 1, 9, 14. Мы
+остановились на варианте когда в пятёрке самых значимых присутствуют
+10-й и 14-й показатели, так как 14-й к тому же весьма слабо коррелирует
+(линейно) со всеми остальными показтелями, как видно из
+кроскореляционной матрицы приведённой выше. Так же наличие 14-го
+показателя на scatter plot диаграммах весьма чётко иллюстрирует один из
+выводов работы сделанных далее.
+
+    Далее нам надо отобразить класстеризованные регионы на двумернных
+проекциях попарных сочетаний соответсвующих показателей. Для этого мы и
+выбирали наиболее значимые показатели -- что бы сократить число выводимых
+двумерных проекций. Задача графического отображения класстеризованных
+регионов на проекциях требует указания множества различных параметров
+отображения, и является довольно громоздкой. Для её решения был создан
+класс ClustersDrawer, исходный код (текст) которого вынесен в отдельный
+файл clusters\_drawer.py
+
+    Среди задаваемых параметров следует выделить ms -- обученный MeanShift
+кластеризатор содержащий информацию о кластерах (принадлежности того или
+иного региона к тому или иному кластеру) и список significant\_features
+- номера наиболее важных показателей.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_91_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Для облегчения восприятия выводим попарные сочетания названий пяти
+наиболее значимых показетелей.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+ 0 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%)
+
+ 1 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+ 2 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 3 УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ ИСПОЛЬЗОВАВШИХ  ИНТЕРНЕТ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+(В ПРОЦЕНТАХ ОТ ОБЩЕГО ЧИСЛА ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ
+СООТВЕТСТВУЮЩЕГО СУБЪЕКТА РОССИЙСКОЙ ФЕДЕРАЦИИ) 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 4 ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%) 
+ |  ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ
+
+ 5 ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%) 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 6 ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ
+(УДЕЛЬНЫЙ ВЕС ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ,
+ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ,
+В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( \%) 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 7 ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ 
+ |  численность персонала без ученых степеней, занятых НИОКР
+
+ 8 ИСПОЛЬЗУЕМЫЕ ПЕРЕДОВЫЕ ПРОИЗВОДСТВЕННЫЕ ТЕХНОЛОГИИ
+ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+ 9 численность персонала без ученых степеней, занятых НИОКР 
+ |  УДЕЛЬНЫЙ ВЕС ИННОВАЦИОННЫХ ТОВАРОВ, РАБОТ, УСЛУГ
+В ОБЩЕМ ОБЪЕМЕ ОТГРУЖЕННЫХ ТОВАРОВ, ВЫПОЛНЕННЫХ РАБОТ,
+УСЛУГ, ПО СУБЪЕКТАМ РОССИЙСКОЙ ФЕДЕРАЦИИ (\%)
+
+    \end{Verbatim}
+
+    Сразу стоит указать, что на каждом изображении (двумерной проекции)
+содеражится полный временной (ударение на <<о>>) слепок каждого
+кластера. То есть каждый регион на изображении встречается несколько
+раз, (столько раз сколько лет во временном диапазоном на протяжении
+которого мы кластеризуем), причём он может в общем случае быть обозначен
+разными значками с разным цветом, обозначающими принадлежность к разным
+кластерам (может с течением времени <<путешествовать>> по
+кластерам). Далее можно попробовать сделать некие общие выводы глядя на
+построенные нами scatter plot диаграммы, и попробовать определить
+критерии принадлежности к каждому кластеру (или иначе -- попробовать на
+человеческом языке как то назвать полученные кластеры). В качестве
+примера подробнее разберём первый же рисунок, на которм изображена
+зависимость количества полезных моделей в зависимости от
+<<степени интернатизации>>. \\ Глядя на изображение
+можно сделать выввод, что большая часть регионов на протяжении срока
+наблюдения попадает в кластер 1 для которого довольно высокие значения
+независимой переменной (степени интернатизации) не приводят тем не менее
+к высоким значениям зависимой (ну или лучше сказать
+<<коррелирующей, причём возможно нелинейно>>) переменной
+(количеству полезных патентов). \\ Кластер 2 можно
+охарактеризовать тем, что низкие значения независимой переменной
+соответсвуют низким значениям зависимой. \\ Кластер 3 можно
+охарактеризовать тем, что для него высокие значения независимой
+переменной соответствует высоким значениям зависимой.
+\\ Про кластер 4 из анализа 1-го изображения пока ничего
+определённого сказать нельзя, на первый взгляд он не отличается от
+кластера 1. \\ Анализ последующих изображений подтверждает
+выводы о кластерах 1, 2, 3, и проясняет характеристики кластера 4. Итак:
+
+\begin{enumerate}
+\item Кластер 1. Можно охарактеризовать понятием <<середнячки>>, или <<эффективность от невысокой до средней>>, или <<не очень высокая инновационная отдача на относительно (или даже абсолютно) высокие вложения>>.
+\item Кластер 2. Можно охарактеризовать понятием <<отстающие>>, или <<малая иновационная отдача в ответ на малые вложения>>.
+\item Кластер 3. <<Лидеры>>. Характеризуються высокой инновационной отдачей в ответ на высокие вложения.
+\item Кластер 4. Можно охарактеризовать понятием <<аномальная эффективность>>. По некоторым параметрам ведут себя как представители класса 1, но по некоторым показывают высокую инновационную отдачу в ответ на низкие вложения (что отчётливо видно на диаграммах с 14-м показателем: <<ИННОВАЦИОННАЯ АКТИВНОСТЬ ОРГАНИЗАЦИЙ (УДЕЛЬНЫЙ ВЕС  ОРГАНИЗАЦИЙ, ОСУЩЕСТВЛЯВШИХ ТЕХНОЛОГИЧЕСКИЕ, ОРГАНИЗАЦИОННЫЕ, МАРКЕТИНГОВЫЕ ИННОВАЦИИ В ОТЧЕТНОМ ГОДУ, В ОБЩЕМ ЧИСЛЕ ОБСЛЕДОВАННЫХ ОРГАНИЗАЦИЙ ( %)>>)
+Что не исключает того, что по некоторым показателям в 4-ом кластере, возможно как раз аномально низкое значение одного из показателей в сочетании с высоким значением другого. Впрчем, такая ситуация не исключена и в других кластерах.
+\end{enumerate}
+
+    Выводим списки регионов сгрупированные в кластера по годам. Для этого
+добавляем в главный датафрейм, с которым мы оперируем, информацию о
+принадлежности региона к кластеру в виде столбца \verb'"cluster_label"'.
+Разделяем главный датафрейм на список датафреймов в котором каждый
+элемент списка -- отдельный кластер.
+
+    Определям функцию для разбиения кластера (датафрейма в котором регионы
+сгрупированны по кластерам) по годам.
+
+    Определяем временной диапазон.
+
+    Разбиваем кластера по годам.
+
+
+\begin{itemize}
+    \item[Год:  2005]
+
+  Кластер:  1 \\
+ Белгородская область, Владимирская область, Воронежская область, Калужская область, Липецкая область, Рязанская область, Тамбовская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Удмуртская Республика, Чувашская Республика, Оренбургская область, Пензенская область, Саратовская область, Челябинская область, Республика Алтай, Республика Хакасия, Алтайский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Магаданская область, Сахалинская область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Брянская область, Ивановская область, Костромская область, Курская область, Смоленская область, Тверская область, Архангельская область, Республика Калмыкия, Республика Ингушетия, Чеченская Республика, Республика Мордовия, Кировская область, Ульяновская область, Курганская область, Тюменская область, Республика Бурятия, Республика Тыва, Забайкальский край, Амурская область, Еврейская автономная область
+
+  Кластер:  3 \\
+ Московская область, Орловская область, Тульская область, Москва, Республика Татарстан, Пермский край, Нижегородская область, Самарская область, Свердловская область
+
+  Кластер:  4 \\
+
+
+
+  \item[Год:  2006]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Чувашская Республика, Оренбургская область, Пензенская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Магаданская область, Сахалинская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Республика Калмыкия, Республика Ингушетия, Чеченская Республика, Кировская область, Тюменская область, Республика Тыва
+
+  Кластер:  3 \\
+ Московская область, Москва, Республика Татарстан, Пермский край, Нижегородская область, Самарская область, Свердловская область
+
+  Кластер:  4 \\
+
+
+
+   \item[Год:  2007]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Удмуртская Республика, Чувашская Республика, Кировская область, Оренбургская область, Пензенская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Магаданская область, Сахалинская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Республика Ингушетия, Чеченская Республика, Тюменская область, Республика Тыва
+
+  Кластер:  3 \\
+ Московская область, Москва, Республика Татарстан, Пермский край, Нижегородская область, Самарская область, Свердловская область
+
+  Кластер:  4 \\
+ Республика Мордовия
+
+
+   \item[Год:  2008]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Московская область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Чувашская Республика, Кировская область, Оренбургская область, Пензенская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Сахалинская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Чеченская Республика, Тюменская область, Республика Тыва
+
+  Кластер:  3 \\
+ Москва, Республика Татарстан, Пермский край, Нижегородская область, Самарская область, Свердловская область, Магаданская область
+
+  Кластер:  4 \\
+
+
+
+   \item[Год:  2009]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Московская область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Чувашская Республика, Кировская область, Оренбургская область, Пензенская область, Самарская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Сахалинская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Тюменская область
+
+  Кластер:  3 \\
+ Москва, Республика Татарстан, Пермский край, Нижегородская область, Свердловская область, Магаданская область
+
+  Кластер:  4 \\
+
+
+
+   \item[Год:  2010]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Московская область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Чувашская Республика, Кировская область, Оренбургская область, Пензенская область, Самарская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Сахалинская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Тюменская область
+
+  Кластер:  3 \\
+ Москва, Республика Татарстан, Пермский край, Нижегородская область, Свердловская область, Магаданская область
+
+  Кластер:  4 \\
+
+
+
+   \item[Год:  2011]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Чувашская Республика, Пермский край, Кировская область, Оренбургская область, Пензенская область, Самарская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Приморский край, Хабаровский край, Амурская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Тюменская область
+
+  Кластер:  3 \\
+ Московская область, Москва, Республика Татарстан, Нижегородская область, Свердловская область, Республика Алтай, Камчатский край, Магаданская область
+
+  Кластер:  4 \\
+ Сахалинская область
+
+
+   \item[Год:  2012]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Республика Мордовия, Удмуртская Республика, Пермский край, Кировская область, Оренбургская область, Пензенская область, Саратовская область, Ульяновская область, Курганская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Приморский край, Хабаровский край, Амурская область, Еврейская автономная область, Чукотский автономный округ
+
+  Кластер:  2 \\
+ Архангельская область, Тюменская область
+
+  Кластер:  3 \\
+ Московская область, Москва, Республика Татарстан, Чувашская Республика, Нижегородская область, Свердловская область, Камчатский край, Магаданская область
+
+  Кластер:  4 \\
+ Самарская область, Сахалинская область
+
+
+   \item[Год:  2013]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Липецкая область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Удмуртская Республика, Чувашская Республика, Пермский край, Кировская область, Оренбургская область, Пензенская область, Самарская область, Саратовская область, Ульяновская область, Курганская область, Свердловская область, Тюменская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Еврейская автономная область
+
+  Кластер:  2 \\
+
+
+  Кластер:  3 \\
+ Московская область, Москва, Республика Мордовия, Республика Татарстан, Нижегородская область, Магаданская область, Чукотский автономный округ
+
+  Кластер:  4 \\
+ Архангельская область, Сахалинская область
+
+
+   \item[Год:  2014]
+
+  Кластер:  1 \\
+ Белгородская область, Брянская область, Владимирская область, Воронежская область, Ивановская область, Калужская область, Костромская область, Курская область, Орловская область, Рязанская область, Смоленская область, Тамбовская область, Тверская область, Тульская область, Ярославская область, Республика Карелия, Республика Коми, Архангельская область, Ненецкий автономный округ, Вологодская область, Калинингpадская область, Ленинградская область, Мурманская область, Новгородская область, Псковская область, Республика Адыгея, Республика Калмыкия, Краснодарский край, Астраханская область, Волгоградская область, Ростовская область, Республика Дагестан, Республика Ингушетия, Чеченская Республика, Ставропольский край, Республика Башкортостан, Республика Марий Эл, Удмуртская Республика, Пермский край, Кировская область, Оренбургская область, Пензенская область, Самарская область, Саратовская область, Ульяновская область, Курганская область, Свердловская область, Тюменская область, Челябинская область, Республика Алтай, Республика Бурятия, Республика Тыва, Республика Хакасия, Алтайский край, Забайкальский край, Красноярский край, Иркутская область, Кемеровская область, Новосибирская область, Омская область, Томская область, Республика Саха (Якутия), Камчатский край, Приморский край, Хабаровский край, Амурская область, Магаданская область, Еврейская автономная область
+
+  Кластер:  2 \\
+
+
+  Кластер:  3 \\
+ Липецкая область, Московская область, Москва, Республика Мордовия, Республика Татарстан, Чувашская Республика, Нижегородская область, Чукотский автономный округ
+
+  Кластер:  4 \\
+ Сахалинская область
+\end{itemize}
+
+
+    Из полученного разбиения кластеров по годам можно сделать несколько
+выводов:
+
+\begin{enumerate}
+\item Не во все года в кластер 4 (<<Аномальная эффективность>>) попадает хотя бы один регион. Более того, регионы начинают попадать в кластер 4 начиная с середины срока наблюдения, и в особенности ближе к концу срока.
+\item Кластер 2 (<<Отстающие>>) со временем исчезает (<<рассасывается>>) регионы перемещаються из него, в основном в кластер 1 (<<Середнячки>>).
+\item Большая часть регионов надёжно остаються в своих кластерах, но есть и регионы перемещающиеся в другие кластера (например регионы из разряда <<Отстающие>> перемещающиеся в <<Середнячки>>) и регионы <<бродящие>> по различным кластерам, например Самарская область, или Архангельская область которая из <<Отстающих>> переместилась в <<Аномальные>>.
+\item Большая часть регионов со временем сосредоточилась в кластере 1.
+\end{enumerate}
+
+    Далее необходимо решить задачу отображения информации о кластеризованных
+регионах на карте административных единиц Российской Федерации.
+
+    Загружаем значения кодов регионов.
+
+    Загружаем карту административных единиц РФ с сопутствующей информацией.
+Карты в формате Shapefile находяться в свободном доступе здесь:
+\url{https://gadm.org/data.html}. Для работы с картами в данном формате
+используетя Python библиотека с таким же названием.
+
+    Из загруженных данных читаем информацию о регионах (содержащую, в
+частности названия регионов), и собственно, само геометрическое описание
+регионов (в виде неких многоугольников).
+
+    Дальше определено несколько вспомогательных функций/участков кода в
+основном предназначенных для сопоставления названий регионов
+(административных единиц) взятых из различных источников: данных о
+иновационной активности, кодов регионов, географической информации. Из
+каждого названия выделяется основная (значимая) часть. Многие регионы в
+различных источниках пишуться по разному, применяються различные
+аббревиатуры, и т.д, поэтому некоторые названия пришлось сопоставлять
+вручную. Имена (названия) определяемых функция и переменных даны с
+учётом того что имя должно сообщать максимальную информацию о смысле
+данной функции (переменной), с другой стороны возможности да и
+необходимости давать (и, следовательно придумывать) максимально
+<<красивые>> имена с точки зрения программирования у нас здесь нет,
+поэтому имена получились такими, какими получились. Так же с помощью
+определённых далее вспомогательных функций производиться сопоставление
+регионов (их индексов в соответствующих списках) из различных
+источников, на основе ранее выделенных главных частей названий, что
+нужно для отрисовки регионов с их кодами на карте.
+
+
+    Отдельная задача -- отрисовать код региона на карте так что бы код попал
+<<внутрь>> границ региона. Стандартных средств для этого в
+библиотеках Python нет. Задача решена в некоторых проприетарных пакетах,
+но налаживание взаимодействия с ними (хотя бы в виде уже готовых карт)
+может занять весьма неопределённое время. Поэтому попытаемся решить
+некий простейший вариант данной задачи, с возможнотью
+<<ручной подстройки>> координат и размера надписи. В общем виде
+решение данной задачи (разместить объект ограниченный неким
+прямоугольником <<где-то внутри>> произвольного, и в общем случае,
+невыпуклого многоуголника <<ближе всего>> к некоторому наиболее
+удобному для человеческого глаза <<центру восприятия>>
+многоугольника, смасштабировав к тому же размещаемый объект) превосходит
+как минимум в несколько раз по трудо и времяёмкости данную работу. Как
+показали проведённые эксперименты, достаточно неплохие результаты во
+многих случаях даёт просто размещение надписи в центре ограничивающего
+регион прямоугольника (bbox в терминологии shapefiles). Размещение в
+центре масс многоугольника даёт худший результат, в особенности если
+регион имеет извилистую береговую линию (тогда центр масс сильно к ней
+смещён). О регионах состоящих из нескольких островов и говорить не
+приходится -- поможет только установка надписи <<вручную>>, как
+скорее всего и сделано в проприетарном ПО. Следует оговорить что далее
+нарушено одно из основных правил написания хорошего программного кода:
+введено некоторое количество неименнованных <<магических>> чисел
+(размер шрифта), но код у нас одноразовый, дальнейшей поддержки и
+развития не предполагает, поэтому вряд ли нарушение этого правила
+принесёт нам большой вред.
+
+
+    Определяем таблицу кодов регионов для которых координаты (и возможно,
+размер) надписи будем устанавливать вручную.
+
+
+    Определяем функцию (довольно громоздкую и сложную) отрисовывающую карту
+регионов.
+
+
+    Выводим названия административных единиц вместе с их кодами
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Белгородская область BEL
+Брянская область BRY
+Владимирская область VLA
+Воронежская область VOR
+Ивановская область IVA
+Калужская область KAL
+Костромская область KOS
+Курская область KUR
+Липецкая область LIP
+Московская область MOK
+Орловская область ORE
+Рязанская область RYA
+Смоленская область SMO
+Тамбовская область TAM
+Тверская область TVE
+Тульская область TUL
+Ярославская область YAR
+Москва MOS
+Республика Карелия KAR
+Республика Коми KOM
+Архангельская область ARK
+Ненецкий автономный округ NAO
+Вологодская область VOL
+Калинингpадская область KAN
+Ленинградская область LEN
+Мурманская область MUR
+Новгородская область NOV
+Псковская область PSK
+Санкт-Петербург ST.P
+Республика Адыгея ADY
+Республика Калмыкия KAM
+Краснодарский край KRA
+Астраханская область AST
+Волгоградская область VOG
+Ростовская область ROS
+Республика Дагестан DAG
+Республика Ингушетия ING
+Кабардино-Балкарская Республика K.B.R
+Карачаево-Черкесская Республика K.C.R
+Республика Северная Осетия - Алания CEO
+Чеченская Республика CHE
+Ставропольский край STA
+Республика Башкортостан BAS
+Республика Марий Эл MEL
+Республика Мордовия MOR
+Республика Татарстан TAT
+Удмуртская Республика UDM
+Чувашская Республика CHU
+Пермский край PER
+Кировская область KIR
+Нижегородская область NIZ
+Оренбургская область ORN
+Пензенская область PEN
+Самарская область SAM
+Саратовская область SAR
+Ульяновская область ULY
+Курганская область KUR
+Свердловская область SVE
+Тюменская область TYU
+Ханты-Мансийский автономный округ - Югра KHA
+Ямало-Ненецкий автономный округ YAM
+Челябинская область CHL
+Республика Алтай ALT
+Республика Бурятия BUR
+Республика Тыва TYV
+Республика Хакасия KHK
+Алтайский край ATA
+Забайкальский край BAI
+Красноярский край KRS
+Иркутская область IRK
+Кемеровская область KEM
+Новосибирская область NOS
+Омская область OMS
+Томская область TOM
+Республика Саха (Якутия) SAK
+Камчатский край KAC
+Приморский край PRI
+Хабаровский край KHB
+Амурская область AMU
+Магаданская область MAG
+Сахалинская область SAK
+Еврейская автономная область JEW
+Чукотский автономный округ CAO
+
+    \end{Verbatim}
+
+    Вызываем функцию draw\_clustred\_regions для каждого года, отрисовывая
+регионы принадлежащие данному кластеру в данном году.
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2006
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2007
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2008
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2009
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2010
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2011
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2012
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2013
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Год:  2014
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Regions-Clustering-Seaborn-New_files/Regions-Clustering-Seaborn-New_139_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Глядя на карты мы можем сделать ещё несколько выводов:
+
+\begin{enumerate}
+\item Большая часть <<Отстающих>> или <<Аномальных>> регионов отстаят далеко от административного центра -- Московского региона. Отстающие -- в основном некоторые регионы крайнего севера, либо же -- республики Кавказа. Аномальные -- Сибирь, Дальний восток.
+\item Большая часть <<Лидеров>> -- центральная Россия, Урал, юг Поволжья: Москва, Свердловская область, Татарстан то есть наиболее богатые/населённые  административные единицы Российской Федерации.
+\end{enumerate}
+
+Так же стоить заметить, что в ходе работы выявлено несколько требующих
+дальнейшего изучения моментов. Прояснение причин перехода регионов из
+кластера в кластер, дополниетельное исследование регионов относящихся к
+кластеру 4 (с <<аномальной>> иновационной активностью), имелеет и
+теоретический и, возможно, практический смысл, но явно выходит за рамки
+данной работы.
+
+\newpage
+
+    \addcontentsline{toc}{section}{Список источников}
+
+\begin{thebibliography}{}
+    \bibitem{litlink0} \href{http://sebastianraschka.com/Articles/2014_kernel_density_est.html}{ Sebastian Raschka. Kernel density estimation via the Parzen-Rosenblatt window method. Очень понятное объяснение того что такое Парзеновское окно и что такое kernel-функция}
+    \bibitem{litlink1} \href{https://web.stanford.edu/~hastie/ElemStatLearn/} {Trevor Hastie Robert Tibshirani Jerome Friedman. The Elements of Statistical Learning.  Фундаментальное введение в методы машинного обучения. Наиболее известная книга в этой области.}
+    \bibitem{litlink2} \href{https://saravananthirumuruganathan.wordpress.com/about/} { Saravanan Thirumuruganathan. Introduction To Mean Shift Algorithm. Неформальное введение в MeanShift алгоритм c ссылками для дальнейшего изучения}
+    \bibitem{litlink3} \href{https://datascience.stackexchange.com/questions/10228/gini-impurity-vs-entropy} {Gini Impurity vs Entropy. Вопрос на Stackexchange с краткими и ясными ответами и всеми необходимыми ссылками}
+    \bibitem{litlink4} \href{https://www.stat.berkeley.edu/~breiman/RandomForests/cc_home.htm} {Leo Breiman and Adele Cutler. Random Forests. Описание Random Forest алгоритма от его авторов}
+    \bibitem{litlink5} \href{http://scikit-learn.org/stable/documentation.html} {Документация библиотеки ScikitLearn Содержит так же огромное количество теоретических сведений и ссылок для дальнейшего изучения}
+    \bibitem{litlink6} \href{https://en.wikipedia.org/wiki/Decision_tree_learning} {Decision tree learning. Статья о деревьях решений в машинном обучении}
+    \bibitem{litlink7} \href{https://www.amazon.com/Python-Machine-Learning-Sebastian-Raschka/dp/1783555130} {  Sebastian Raschka. Python Machine Learning. Практическое введени в машинное обучение с использованием языка Python. Лучшее сочетание практичности и строгости изложения.}
+\end{thebibliography}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
