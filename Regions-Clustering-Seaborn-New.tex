@@ -605,7 +605,7 @@ Learning / Data Science. Каждый лист Excel-я читаем отдел�
 \end{Verbatim}
 
     Корректируем содержащие ошибочные символы (некорректно внесенные в
-исходные данные) названиях некоторых административных единиц. Так же
+исходные данные) названия некоторых административных единиц. Так же
 некоторые названия заменяем на другие варианты названий которые
 встречаються в иных источниках данных испольуемых в данной работе
 (списке кодов регионов, в географических данных).
@@ -694,7 +694,9 @@ Learning / Data Science. Каждый лист Excel-я читаем отдел�
 остальному применяем функции корректировки.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Республика Ингушетия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PostgraduateNum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+\PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+    \PY{n}{merged\PYZus{}df\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Region}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Республика Ингушетия}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PostgraduateNum}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -730,8 +732,12 @@ Learning / Data Science. Каждый лист Excel-я читаем отдел�
     Корректируем вручную ещё два неверных значения.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1.671.397.1.6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1671397.10}
-\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{395.700.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{395700.10}
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+    \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1.671.397.1.6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1671397.10}
+\PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}
+    \PY{n}{hier\PYZus{}concatenated\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{395.700.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GrossProduct}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{395700.10}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -1585,7 +1591,6 @@ RandomForestClassifier-а посредством простого пойска �
 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ранжированные показатели:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
 
 \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{prepared\PYZus{}df\PYZus{}values}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
-    \PY{n+nb}{print}\PY{p}{(}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{)}
     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{. Показатель }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{)}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}
         \PY{n}{f} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,}
         \PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{,}
@@ -1880,13 +1885,13 @@ Forest) сплит (англ. split), т.е. разбиение по значе�
 человеческом языке как то назвать полученные кластеры). В качестве
 примера подробнее разберём первый же рисунок, на которм изображена
 зависимость иновационной активности организаций в зависимости от
-\verb'"степени интернатизации"'. \textbackslash{}Глядя на изображение
+\verb'"степени интернетизации"'. \textbackslash{}Глядя на изображение
 можно сделать выввод, что большая часть регионов на протяжении срока
 наблюдения попадает в кластер 1 для которого довольно высокие значения
 независимой переменной (степени интернатизации) не приводят тем не менее
 к высоким значениям зависимой (ну или лучше сказать
 \verb'"коррелирующей, причём возможно нелинейно"') переменной (степени
-иновационной активности ораганизаций). \textbackslash{}Кластер 2 можно
+иновационной активности организаций). \textbackslash{}Кластер 2 можно
 охарактеризовать тем, что низкие значения независимой переменной
 соответсвуют низким значениям зависимой. \textbackslash{}Кластер 3 можно
 охарактеризовать тем, что для него высокие значения независимой
@@ -2156,7 +2161,9 @@ Forest) сплит (англ. split), т.е. разбиение по значе�
 нужно для отрисовки регионов с их кодами на карте.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n}{region\PYZus{}map\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{if} \PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Москва}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{record} \PY{o+ow}{in} \PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}records}\PY{p}{]}
+\PY{n}{region\PYZus{}map\PYZus{}names} \PY{o}{=} \PY{p}{[}
+    \PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{if} \PY{n}{record}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]} \PY{k}{else} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Москва}\PY{l+s+s1}{\PYZsq{}} \PY{k}{for} \PY{n}{record} \PY{o+ow}{in} \PY{n}{rus\PYZus{}adm\PYZus{}units\PYZus{}records}
+\PY{p}{]}
 \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
